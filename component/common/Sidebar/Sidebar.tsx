@@ -1,45 +1,49 @@
 "use client";
 
-import TailProperties, {cn} from "@/styles/TailProperties";
-import DefaultProps from "@/utils/DefaultProps";
-import {useEffect, useState} from "react";
+import TailProperties, { cn } from "@/styles/TailProperties";
+import { atom, useRecoilValue } from "recoil";
+import { useEffect } from "react";
 
-function Presenter({id}:DefaultProps<never>) {
-	const style: TailProperties = {}
-	return (<section className={cn(style)}>
-		<h1></h1>
-		<div>
-		</div>
-	</section>)
+export const sidebarAtom = atom({ default: false, key: "sidebar-atom" });
+
+function Presenter() {
+  const style: TailProperties = {
+    box: `w-80 h-screen`,
+    layout: `px-4 pt-14`,
+    bg_border: "bg-slate-800",
+  }; // style
+  return (
+    <section className={cn(style)}>
+      <section className="pt-4">
+        <div className="grid gap-2">
+          <button className="w-full h-8 bg-white"></button>
+          <button className="w-full h-8 bg-white"></button>
+          <button className="w-full h-8 bg-white"></button>
+          <button className="w-full h-8 bg-white"></button>
+        </div>
+      </section>
+    </section>
+  );
 }
 
-type SidebarDataType = {
-	active_width: string
-}
-function Container({id, data}: DefaultProps<SidebarDataType>){
-	const [active, setActive] = useState<boolean>(false)
-	useEffect((): void =>{
-		if (!id) return
-		let element: HTMLElement | null = document.getElementById(id)
-		if (!element) return
+function Sidebar() {
+  const isActivated = useRecoilValue<boolean>(sidebarAtom);
+  const id: string = "sidebar--0";
+  useEffect(() => {
+    if (isActivated) document.body.style.paddingLeft = "20rem";
+    else document.body.style.paddingLeft = "0rem";
+  }, [isActivated]);
 
-		if (active) {element.style.width = data ? data?.active_width : "100"}
-		else {element.style.width = "0"}
-	}, [active])
-
-	return (
-	<section>
-		<div id={id} className="overflow-hidden">
-			<Presenter id={id}/>
-		</div>
-	</section>
-	)
+  const style: TailProperties = {
+    box: `${isActivated ? "left-0" : "-left-full"}`,
+    etc: "relative transition-all duration-500",
+  };
+  return (
+    <div className="fixed left-0 top-0">
+      <div id={id} className={cn(style)}>
+        <Presenter />
+      </div>
+    </div>
+  );
 }
-
-function Sidebar({}){
-	const id: string = "sidebar-id--0"
-	return (<section>
-		<Container id={id}/>
-	</section>)
-}
-export default Sidebar
+export default Sidebar;

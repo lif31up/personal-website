@@ -1,21 +1,63 @@
 "use client";
 
-import TailProperties, {cn} from "@/styles/TailProperties";
+import TailProperties, { cn } from "@/styles/TailProperties";
 import DefaultProps from "@/utils/DefaultProps";
+import { AtomEffect, useRecoilState } from "recoil";
+import { sidebarAtom } from "@/component/common/Sidebar/Sidebar";
 
-type SidebarButtonDataType = {
-	sidebar_id: string;
-	active_width: string;
-}
-function SidebarButton({data}: DefaultProps<SidebarButtonDataType>){
-	if (!data) return (<></>)
-	const {sidebar_id, active_width}: SidebarButtonDataType = data;
-	if (!sidebar_id || !active_width) return (<></>)
-	return (<><Presenter/></>)
-}
-export default SidebarButton
+function SidebarButton() {
+  const [isActivated, setIsActivated] = useRecoilState<boolean>(sidebarAtom);
+  const onClick = () => setIsActivated(!isActivated);
 
-function Presenter({data}: DefaultProps<SidebarButtonDataType>){
-	const style: TailProperties = {}
-	return (<button className={cn(style)}>HELLO</button>)
+  return (
+    <button onClick={() => onClick()}>
+      <Presenter data={{ activated: isActivated }} />
+    </button>
+  );
+}
+export default SidebarButton;
+
+type PresenterDataType = { activated: boolean };
+function Presenter({ data }: DefaultProps<PresenterDataType>) {
+  const [iconSize, strokeWidth] = [14, 2.5];
+
+  const style: TailProperties = {
+    box: `w-8 h-8 bg-slate-${data?.activated ? "8" : "3"}00 rounded-full`,
+    layout: "flex items-center justify-center",
+    typo: "text-slate-200",
+    etc: "shadow-base",
+  };
+  return (
+    <div className={cn(style)}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={`0 0 ${24} ${24}`}
+        width={iconSize}
+        height={iconSize}
+        fill={"none"}
+      >
+        <path
+          d="M4 5L20 5"
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4 12L20 12"
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4 19L20 19"
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
 }

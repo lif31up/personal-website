@@ -1,5 +1,9 @@
 @import "magic.css/dist/magic.css";
 
+._tran_location {
+  transition: transform ease-in-out 2s;
+}
+
 /*infinite*/
 ._anime-dynamic-rainbow {
   position: relative;
