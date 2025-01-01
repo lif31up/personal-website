@@ -19,12 +19,12 @@ export default SidebarButton;
 
 type PresenterDataType = { activated: boolean };
 function Presenter({ data }: DefaultProps<PresenterDataType>) {
-  const [iconSize, strokeWidth] = [14, 2.5];
+  const [iconSize, strokeWidth] = [14, 3];
 
   const style: TailProperties = {
-    box: `w-8 h-8 bg-slate-${data?.activated ? "8" : "3"}00 rounded-full`,
+    box: `w-8 h-8 bg-neutral-${data?.activated ? "9" : "7"}00 rounded-full`,
     layout: "flex items-center justify-center",
-    typo: "text-slate-200",
+    typo: "text-slate-300",
     etc: "shadow-base",
   };
   return (
