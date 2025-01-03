@@ -3,18 +3,18 @@
 import TailProperties, { cn } from "@/styles/TailProperties";
 import GithubProfile from "@/component/common/Gitub/GithubProfile";
 import { RecoilRoot } from "recoil";
+import Repos from "@/component/common/Gitub/Repos";
 
 function Displayer({}) {
   const style: TailProperties = {
-    box: "p-8",
+    box: "h-fit p-8 my-4",
     bg_border: "bg-neutral-900 rounded-md",
-    anime_transit: "transition-all duration-1000",
   };
-  const id: string = " dfdf";
   return (
-    <section className={cn(style)} style={{ width: "60rem", height: "100vh" }}>
+    <section className={cn(style)} style={{ width: "60rem" }}>
       <RecoilRoot>
         <GithubProfile />
+        <Repos className="pt-32" />
       </RecoilRoot>
     </section>
   );

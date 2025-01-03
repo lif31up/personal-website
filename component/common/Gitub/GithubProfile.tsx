@@ -6,7 +6,7 @@ import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 
 // @ts-ignore
-const githubAtom: RecoilState<JSON | null> = atom({
+export const githubAtom: RecoilState<JSON | null> = atom({
   key: "github-profile",
   default: null,
 });
@@ -119,7 +119,7 @@ export default GithubProfile;
 
 const GithubLinkButton = ({ data }: DefaultProps<string>) => {
   const style: TailProperties = {
-    bg_border: "bg-neutral-600",
+    bg_border: "bg-neutral-800 hover:bg-neutral-700",
     typo: "text-white",
     etc: "rounded-full",
     box: "w-fit h-fit p-1",
