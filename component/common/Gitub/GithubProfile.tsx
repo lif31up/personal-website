@@ -6,14 +6,14 @@ import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 
 // @ts-ignore
-export const githubAtom: RecoilState<JSON | null> = atom({
+export const githubAtom: RecoilState<any> = atom({
   key: "github-profile",
   default: null,
 });
 
 const fetchGithub = (
   username: string,
-  setData: SetterOrUpdater<JSON | null>,
+  setData: SetterOrUpdater<any>,
   setIsLoad: Dispatch<SetStateAction<boolean>>
 ) =>
   fetch(`https://api.github.com/users/${username}`)
@@ -29,7 +29,7 @@ const fetchGithub = (
 
 function GithubProfile({}) {
   const [isLoad, setIsLoad] = useState<boolean>(false);
-  const [githubData, setGithubData] = useRecoilState<JSON | null>(githubAtom);
+  const [githubData, setGithubData] = useRecoilState<any>(githubAtom);
   useEffect(() => {
     console.log(fetchGithub("lif31up", setGithubData, setIsLoad));
   }, []);
@@ -51,7 +51,7 @@ function GithubProfile({}) {
 }
 export default GithubProfile;
 
-function Representer({ data }: DefaultProps<JSON>) {
+function Representer({ data }: DefaultProps<any>) {
   const style: TailProperties = {
     typo: "text-white",
     layout: "flex gap-12",

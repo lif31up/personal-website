@@ -12,14 +12,14 @@ import {
 import TailProperties, { cn } from "@/styles/TailProperties";
 
 // @ts-ignore
-export const reposAtom: RecoilState<JSON | null> = atom({
+export const reposAtom: RecoilState<any> = atom({
   key: "github-repos",
   default: null,
 });
 
 const fetchGithub = (
   username: string,
-  setData: SetterOrUpdater<JSON | null>,
+  setData: SetterOrUpdater<any>,
   setIsLoad: Dispatch<SetStateAction<boolean>>
 ) =>
   fetch(`https://api.github.com/users/${username}/repos`)
@@ -35,7 +35,7 @@ const fetchGithub = (
 
 function Repos({ className }: DefaultProps<never>) {
   const [isLoad, setIsLoad] = useState<boolean>(false);
-  const [reposData, setReposData] = useRecoilState<JSON | null>(reposAtom);
+  const [reposData, setReposData] = useRecoilState<any>(reposAtom);
   useEffect(() => {
     console.log(fetchGithub("lif31up", setReposData, setIsLoad));
   }, []);
@@ -49,7 +49,7 @@ function Repos({ className }: DefaultProps<never>) {
 }
 export default Repos;
 
-function Representer({ data }: DefaultProps<JSON>) {
+function Representer({ data }: DefaultProps<any>) {
   const nodeListOfRepoBlock: ReactElement[] = [];
   data?.forEach((element: JSON, index: number) => {
     nodeListOfRepoBlock.push(<ReposBlock data={element} key={index} />);
@@ -66,7 +66,7 @@ function Representer({ data }: DefaultProps<JSON>) {
   );
 }
 
-function ReposBlock({ data }: DefaultProps<JSON>) {
+function ReposBlock({ data }: DefaultProps<any>) {
   const style: TailProperties = {
     layout: "grid",
     box: "w-full h-fit py-2 px-4",
