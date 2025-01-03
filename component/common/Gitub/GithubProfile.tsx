@@ -27,11 +27,36 @@ const fetchGithub = (
       return data;
     });
 
+function GithubProfile({}) {
+  const [isLoad, setIsLoad] = useState<boolean>(false);
+  const [githubData, setGithubData] = useRecoilState<JSON | null>(githubAtom);
+  useEffect(() => {
+    console.log(fetchGithub("lif31up", setGithubData, setIsLoad));
+  }, []);
+
+  if (!githubData || !isLoad) return <></>;
+  return (
+    <>
+      <Representer data={githubData} />
+      <div
+        className="bg-neutral-800"
+        style={{
+          width: "100%",
+          height: "1px",
+          marginTop: "-4rem",
+        }}
+      />
+    </>
+  );
+}
+export default GithubProfile;
+
 function Representer({ data }: DefaultProps<JSON>) {
   const style: TailProperties = {
     typo: "text-white",
     layout: "flex gap-12",
   };
+  if (!data) return <></>;
   return (
     <section className={cn(style)}>
       <img
@@ -92,30 +117,6 @@ function Representer({ data }: DefaultProps<JSON>) {
     </section>
   );
 }
-
-function GithubProfile({}) {
-  const [isLoad, setIsLoad] = useState<boolean>(false);
-  const [githubData, setGithubData] = useRecoilState<JSON | null>(githubAtom);
-  useEffect(() => {
-    console.log(fetchGithub("lif31up", setGithubData, setIsLoad));
-  }, []);
-
-  if (!githubData || !isLoad) return <></>;
-  return (
-    <>
-      <Representer data={githubData} />
-      <div
-        className="bg-neutral-800"
-        style={{
-          width: "100%",
-          height: "1px",
-          marginTop: "-4rem",
-        }}
-      />
-    </>
-  );
-}
-export default GithubProfile;
 
 const GithubLinkButton = ({ data }: DefaultProps<string>) => {
   const style: TailProperties = {
