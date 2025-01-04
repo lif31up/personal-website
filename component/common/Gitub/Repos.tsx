@@ -71,7 +71,7 @@ function ReposBlock({ data }: DefaultProps<any>) {
     layout: "grid",
     box: "w-full h-fit py-2 px-4",
     typo: "text-white",
-    bg_border: "bg-neutral-900 hover:bg-neutral-800",
+    bg_border: "bg-neutral-950 hover:bg-neutral-800",
     etc: "border-neutral-600 cursor-pointer",
   };
   return (

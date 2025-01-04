@@ -4,11 +4,12 @@ import TailProperties, { cn } from "@/styles/TailProperties";
 import GithubProfile from "@/component/common/Gitub/GithubProfile";
 import { RecoilRoot } from "recoil";
 import Repos from "@/component/common/Gitub/Repos";
+import ShortcutList from "@/component/common/ShorutcutList";
 
 function Displayer({}) {
   const style: TailProperties = {
     box: "h-fit p-8 my-4",
-    bg_border: "bg-neutral-900 rounded-md",
+    bg_border: "rounded-md",
   };
   return (
     <section className={cn(style)} style={{ width: "60rem" }}>

@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { atom, RecoilState, SetterOrUpdater, useRecoilState } from "recoil";
 import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
+import ShortcutList from "@/component/common/ShorutcutList";
 
 // @ts-ignore
 export const githubAtom: RecoilState<any> = atom({
@@ -113,6 +114,7 @@ function Representer({ data }: DefaultProps<any>) {
           Hi, my name is han myeonghwan. i'm currently studying computer science
           at yonsei univ. I want to kill all of your friends.
         </p>
+        <ShortcutList className="absolute mt-14" />
       </section>
     </section>
   );

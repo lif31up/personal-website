@@ -24,13 +24,6 @@ function Navigator() {
             </h2>
           </div>
         </div>
-        <img
-          src="/star_anime.gif"
-          className="mr-1"
-          alt="star_anime"
-          width={24}
-          height={24}
-        />
       </section>
 
       <Sidebar />
