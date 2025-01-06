@@ -2,20 +2,12 @@
 	"apiVersion": "0.0.1",
 	"data": [
 		{
-			"url": "",
-			"svg_url": ""
+			"url": "kaggle",
+			"svg_url": "/kaggle.svg"
 		},
 		{
-			"url": "",
-			"svg_url": ""
-		},
-		{
-			"url": "",
-			"svg_url": ""
-		},
-		{
-			"url": "",
-			"svg_url": ""
+			"url": "linkedin",
+			"svg_url": "/linkedin.svg"
 		}
 	]
 }

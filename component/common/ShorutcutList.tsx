@@ -5,6 +5,7 @@ import TailProperties, { cn } from "@/styles/TailProperties";
 import { ReactElement } from "react";
 
 import shortcuts from "@/public/shortcuts.json";
+import SVG from "@/component/common/SVG";
 
 type ShortcutDataType = {
   url: string;
@@ -16,15 +17,15 @@ function Shortcut({ data }: DefaultProps<ShortcutDataType>) {
     window.open(data.url);
   };
   const style: TailProperties = {
-    box: "w-16 h-16",
-    layout: "",
-    bg_border: "bg-neutral-900",
-    typo: "text-white",
-    etc: "rounded-full",
+    box: "w-12 h-12",
+    layout: "flex items-center justify-center",
+    bg_border: "bg-neutral-950",
+    typo: "text-white fill-white",
+    etc: "rounded-full hover:bg-neutral-900",
   };
   return (
     <button onClick={onClick} className={cn(style)}>
-      <img alt="svg_url" src={data.svg_url} />
+      <SVG data={{ svg_url: data.svg_url, width: 16, height: 16 }} />
     </button>
   );
 }
