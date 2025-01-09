@@ -1,27 +1,16 @@
 "use client";
 
-import { atom, SetterOrUpdater, useRecoilState } from "recoil";
+import { atom, RecoilState, SetterOrUpdater, useRecoilState } from "recoil";
 import DefaultProps from "@/utils/DefaultProps";
-import {
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { ReactElement, useEffect } from "react";
 import TailProperties, { cn } from "@/styles/TailProperties";
 
-// @ts-ignore
 export const reposAtom: RecoilState<any> = atom({
   key: "github-repos",
   default: null,
-});
+}); // reposAtom
 
-const fetchGithub = (
-  username: string,
-  setData: SetterOrUpdater<any>,
-  setIsLoad: Dispatch<SetStateAction<boolean>>
-) =>
+const fetchRepos = (username: string, setData: SetterOrUpdater<any>) =>
   fetch(`https://api.github.com/users/${username}/repos`)
     .then((response) => {
       if (!response.ok) return null;
@@ -29,29 +18,27 @@ const fetchGithub = (
     })
     .then((data) => {
       setData(data);
-      setIsLoad(true);
       return data;
     });
+// fetchRepos:: success ? JSON : null
 
-function Repos({ className }: DefaultProps<never>) {
-  const [isLoad, setIsLoad] = useState<boolean>(false);
+function GithubRepos({ className }: DefaultProps<never>) {
   const [reposData, setReposData] = useRecoilState<any>(reposAtom);
   useEffect(() => {
-    console.log(fetchGithub("lif31up", setReposData, setIsLoad));
+    console.log(fetchRepos("lif31up", setReposData));
   }, []);
-
-  if (!reposData || !isLoad) return <></>;
+  if (!reposData) return <></>;
   return (
     <div className={className}>
       <Representer data={reposData} />
     </div>
   );
-}
-export default Repos;
+} // GithubRepos
+export default GithubRepos;
 
-function Representer({ data }: DefaultProps<any>) {
+function Representer({ data }: DefaultProps<ReposBlockDataType[]>) {
   const nodeListOfRepoBlock: ReactElement[] = [];
-  data?.forEach((element: JSON, index: number) => {
+  data?.forEach((element: ReposBlockDataType, index: number) => {
     nodeListOfRepoBlock.push(<ReposBlock data={element} key={index} />);
   });
   const style: TailProperties = {
@@ -64,9 +51,17 @@ function Representer({ data }: DefaultProps<any>) {
       <>{nodeListOfRepoBlock}</>
     </section>
   );
-}
+} // GithubRepos
 
-function ReposBlock({ data }: DefaultProps<any>) {
+type ReposBlockDataType = {
+  name: string;
+  svn_url: string;
+  url: string;
+  description: string;
+}; // ReposBlockDataType
+
+function ReposBlock({ data }: DefaultProps<ReposBlockDataType>) {
+  if (!data) return <></>;
   const style: TailProperties = {
     layout: "grid",
     box: "w-full h-fit py-2 px-4",
@@ -99,4 +94,4 @@ function ReposBlock({ data }: DefaultProps<any>) {
       </div>
     </button>
   );
-}
+} // ReposBlock

@@ -25,7 +25,15 @@ function Shortcut({ data }: DefaultProps<ShortcutDataType>) {
   };
   return (
     <button onClick={onClick} className={cn(style)}>
-      <SVG data={{ svg_url: data.svg_url, width: 16, height: 16 }} />
+      <SVG
+        data={{
+          svg_url: data.svg_url,
+          width: 16,
+          height: 16,
+          fill: "white",
+          color: "transparent",
+        }}
+      />
     </button>
   );
 }

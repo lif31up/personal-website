@@ -41,4 +41,4 @@ export default function TopBar({ height, constraint, className }: TopBarProps) {
       id={topbarId}
     ></section>
   );
-} // TopBar
+} // Topbar

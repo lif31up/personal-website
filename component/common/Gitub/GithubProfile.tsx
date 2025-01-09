@@ -1,22 +1,18 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { atom, RecoilState, SetterOrUpdater, useRecoilState } from "recoil";
 import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import ShortcutList from "@/component/common/ShorutcutList";
+import Image from "next/image";
 
-// @ts-ignore
 export const githubAtom: RecoilState<any> = atom({
   key: "github-profile",
   default: null,
-});
+}); // githubAtom
 
-const fetchGithub = (
-  username: string,
-  setData: SetterOrUpdater<any>,
-  setIsLoad: Dispatch<SetStateAction<boolean>>
-) =>
+const fetchGithub = (username: string, setData: SetterOrUpdater<any>) =>
   fetch(`https://api.github.com/users/${username}`)
     .then((response) => {
       if (!response.ok) return null;
@@ -24,56 +20,58 @@ const fetchGithub = (
     })
     .then((data) => {
       setData(data);
-      setIsLoad(true);
       return data;
     });
+// fetchGithub:: success ? JSON : null
 
 function GithubProfile({}) {
-  const [isLoad, setIsLoad] = useState<boolean>(false);
   const [githubData, setGithubData] = useRecoilState<any>(githubAtom);
   useEffect(() => {
-    console.log(fetchGithub("lif31up", setGithubData, setIsLoad));
+    console.log(fetchGithub("lif31up", setGithubData));
   }, []);
-
-  if (!githubData || !isLoad) return <></>;
+  if (!githubData) return <></>;
   return (
     <>
       <Representer data={githubData} />
-      <div
-        className="bg-neutral-800"
-        style={{
-          width: "100%",
-          height: "1px",
-          marginTop: "-4rem",
-        }}
-      />
     </>
   );
-}
+} // GithubProfile(Container)
 export default GithubProfile;
 
-function Representer({ data }: DefaultProps<any>) {
+type RepresenterDataType = {
+  avatar_url: string;
+  login: string;
+  id: string;
+  location: string;
+  public_repos: string;
+  followers: string;
+  following: string;
+}; // RepresenterDataType
+
+function Representer({ data }: DefaultProps<RepresenterDataType>) {
   const style: TailProperties = {
     typo: "text-white",
-    layout: "flex gap-12",
+    layout: "lg:flex gap-12 md:block",
+    box: "w-full h-fit",
   };
   if (!data) return <></>;
   return (
     <section className={cn(style)}>
-      <img
-        src={data?.avatar_url}
-        alt="profile_img"
-        width={320}
-        height={320}
-        className="rounded-full"
-      />
-      <section className="flex-col mt-2">
-        <h2 className="text-md text-neutral-400">{data?.id}</h2>
+      <div className="w-fit h-fit">
+        <Image
+          src={data.avatar_url}
+          alt="profile_img"
+          width={512}
+          height={512}
+          className="rounded-full"
+        />
+      </div>
+      <section title="right" className="h-fit flex-col mt-2">
+        <h2 className="text-md text-neutral-400">{data.id}</h2>
         <div className="flex">
-          <h1 className="text-6xl">{data?.login}</h1>
-          <GithubLinkButton data={data?.html_url} />
+          <h1 className="text-6xl">{data.login}</h1>
+          <GithubLinkButton />
         </div>
-
         <div className="flex text-neutral-400 items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,46 +91,46 @@ function Representer({ data }: DefaultProps<any>) {
               strokeWidth="1.5"
             />
           </svg>
-          <h1>{data?.location}</h1>
+          <h1>{data.location}</h1>
         </div>
-
         <h1>
           <b>Repos: </b>
-          {data?.public_repos}
+          {data.public_repos}
         </h1>
         <div className="flex gap-2">
           <h1>
             <b>Follwers: </b>
-            {data?.followers}
+            {data.followers}
           </h1>
           <h2>
             <b>Following: </b>
-            {data?.following}
+            {data.following}
           </h2>
         </div>
-        <p className="text-neutral-400 pr-42 leading-tight mt-4">
-          Hi, my name is han myeonghwan. i'm currently studying computer science
-          at yonsei univ. I want to kill all of your friends.
+        <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
+          {
+            "Hi, my name is han myeonghwan. i'm currently studying computer science at yonsei univ. I want to kill all of your friends."
+          }
         </p>
-        <ShortcutList className="absolute mt-14" />
+        <ShortcutList className="mt-4 -ml-1" />
       </section>
     </section>
   );
-}
+} // Representer
 
-const GithubLinkButton = ({ data }: DefaultProps<string>) => {
+const GithubLinkButton = () => {
   const style: TailProperties = {
-    bg_border: "bg-neutral-800 hover:bg-neutral-700",
+    bg_border: "bg-neutral-950 hover:bg-neutral-800",
     typo: "text-white",
     etc: "rounded-full",
     box: "w-fit h-fit p-1",
   };
   return (
     <button
-      title="click to open my github account page"
+      title="share"
       className={cn(style)}
       onClick={() => {
-        window.open(data);
+        navigator.clipboard.writeText(window.location.href);
       }}
     >
       <svg
@@ -157,4 +155,4 @@ const GithubLinkButton = ({ data }: DefaultProps<string>) => {
       </svg>
     </button>
   );
-};
+}; // GithubButton
