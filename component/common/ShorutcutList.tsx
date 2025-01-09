@@ -19,13 +19,14 @@ function Shortcut({ data }: DefaultProps<ShortcutDataType>) {
   const style: TailProperties = {
     box: "w-12 h-12",
     layout: "flex items-center justify-center",
-    bg_border: "bg-neutral-950",
+    bg_border: "bg-neutral-950 hover:bg-neutral-900",
     typo: "text-white fill-white",
-    etc: "rounded-full hover:bg-neutral-900",
+    etc: "rounded-full",
   };
   return (
-    <button onClick={onClick} className={cn(style)}>
+    <button onClick={onClick} className={cn(style)} title={data.url}>
       <SVG
+        className="pointer-events-none"
         data={{
           svg_url: data.svg_url,
           width: 16,

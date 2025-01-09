@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import Topbar from "@/component/common/Topbar/Topbar";
+import Popup from "@/component/common/Popup";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Topbar data={{ height: "3.5rem" }} />
+        {
+          // <Popup data={{ animation: "_anime-slp-vanish-in" }} />
+        }
         <>{children}</>
       </body>
     </html>

@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main className={cn(style)}>
       <RecoilRoot>
-        <GithubProfile />
+        <GithubProfile className="mt-2" />
         <GithubRepos className="pt-16" />
       </RecoilRoot>
     </main>

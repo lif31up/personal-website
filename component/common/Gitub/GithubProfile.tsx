@@ -6,6 +6,7 @@ import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import ShortcutList from "@/component/common/ShorutcutList";
 import Image from "next/image";
+import { PopupActivate } from "@/component/common/Popup";
 
 export const githubAtom: RecoilState<any> = atom({
   key: "github-profile",
@@ -24,16 +25,16 @@ const fetchGithub = (username: string, setData: SetterOrUpdater<any>) =>
     });
 // fetchGithub:: success ? JSON : null
 
-function GithubProfile({}) {
+function GithubProfile({ className }: DefaultProps<never>) {
   const [githubData, setGithubData] = useRecoilState<any>(githubAtom);
   useEffect(() => {
     console.log(fetchGithub("lif31up", setGithubData));
   }, []);
   if (!githubData) return <></>;
   return (
-    <>
+    <div className={className}>
       <Representer data={githubData} />
-    </>
+    </div>
   );
 } // GithubProfile(Container)
 export default GithubProfile;
@@ -64,6 +65,7 @@ function Representer({ data }: DefaultProps<RepresenterDataType>) {
           width={512}
           height={512}
           className="rounded-full"
+          style={{ outline: "solid white 1px" }}
         />
       </div>
       <section title="right" className="h-fit flex-col mt-2">
@@ -131,6 +133,7 @@ const GithubLinkButton = () => {
       className={cn(style)}
       onClick={() => {
         navigator.clipboard.writeText(window.location.href);
+        PopupActivate("copied");
       }}
     >
       <svg

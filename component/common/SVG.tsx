@@ -10,7 +10,7 @@ type SVGDataType = {
   color: string;
 }; // SVGDataType
 
-function SVG({ data }: DefaultProps<SVGDataType>) {
+function SVG({ data, className }: DefaultProps<SVGDataType>) {
   const elementRef = useRef<any>(null);
   useEffect(() => {
     if (!data) return;
@@ -29,6 +29,13 @@ function SVG({ data }: DefaultProps<SVGDataType>) {
     element.addEventListener("load", onLoadHandler);
   }, []);
   if (!data) return <></>;
-  return <object ref={elementRef} type="image/svg+xml" data={data.svg_url} />;
+  return (
+    <object
+      className={className}
+      ref={elementRef}
+      type="image/svg+xml"
+      data={data.svg_url}
+    />
+  );
 } // SVG
 export default SVG;

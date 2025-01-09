@@ -47,7 +47,9 @@ function Representer({ data }: DefaultProps<ReposBlockDataType[]>) {
   };
   return (
     <section className={cn(style)}>
-      <h1 className="ml-2 text-white font-bold text-xl">Repositories</h1>
+      <h1 className="lg:ml-2 md:ml-0 text-white font-bold text-xl">
+        Repositories
+      </h1>
       <>{nodeListOfRepoBlock}</>
     </section>
   );
@@ -64,15 +66,19 @@ function ReposBlock({ data }: DefaultProps<ReposBlockDataType>) {
   if (!data) return <></>;
   const style: TailProperties = {
     layout: "grid",
-    box: "w-full h-fit py-2 px-4",
+    box: "w-full h-fit py-2 lg:px-4 md:px-0",
     typo: "text-white",
-    bg_border: "bg-neutral-950 hover:bg-neutral-800",
+    bg_border: "xl:bg-neutral-950 md:bg-transparent xl:hover:bg-neutral-900",
     etc: "border-neutral-600 cursor-pointer",
   };
   return (
-    <button className={cn(style)} onClick={() => window.open(data.svn_url)}>
+    <button
+      className={cn(style)}
+      onClick={() => window.open(data.svn_url)}
+      title={data.url}
+    >
       <h1 className="w-fit text-neutral-100 font-medium">{data.name}</h1>
-      <div className="flex items-center gap-1 text-neutral-400">
+      <div className="flex items-center gap-2 text-neutral-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -88,7 +94,7 @@ function ReposBlock({ data }: DefaultProps<ReposBlockDataType>) {
             strokeLinejoin="round"
           />
         </svg>
-        <p className="text-sm">
+        <p className="text-sm text-left">
           {data.description ? data.description : data.url}
         </p>
       </div>
