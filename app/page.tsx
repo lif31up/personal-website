@@ -1,7 +1,7 @@
 "use client";
 
-import GithubRepos from "@/component/common/Gitub/GithubRepos";
-import GithubProfile from "@/component/common/Gitub/GithubProfile";
+import GithubRepos from "@/component/feature/Gitub/GithubRepos";
+import GithubProfile from "@/component/feature/Gitub/GithubProfile";
 import { RecoilRoot } from "recoil";
 import TailProperties, { cn } from "@/styles/TailProperties";
 

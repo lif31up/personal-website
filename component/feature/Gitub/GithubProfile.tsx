@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { atom, RecoilState, SetterOrUpdater, useRecoilState } from "recoil";
 import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
-import ShortcutList from "@/component/common/ShorutcutList";
+import ShortcutList from "@/component/feature/ShorutcutList";
 import Image from "next/image";
 import { PopupActivate } from "@/component/common/Popup";
 

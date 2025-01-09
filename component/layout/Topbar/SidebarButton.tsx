@@ -1,6 +1,6 @@
 import TailProperties, { cn } from "@/styles/TailProperties";
 import DefaultProps from "@/utils/DefaultProps";
-import Sidebar from "@/component/common/Topbar/Sidebar";
+import Sidebar from "@/component/layout/Topbar/Sidebar";
 import { useRef, useState } from "react";
 
 type SidebarButtonDataType = {
@@ -20,7 +20,7 @@ function SidebarButton({ data }: DefaultProps<SidebarButtonDataType>) {
   return (
     <>
       <button onClick={() => onClick()}>
-        <Presenter data={{ activated: isActivated }} />
+        <Representer data={{ activated: isActivated }} />
       </button>{" "}
       <div
         ref={sidebarRef}
@@ -44,7 +44,7 @@ export default SidebarButton;
 
 type PresenterDataType = { activated: boolean };
 
-function Presenter({ data }: DefaultProps<PresenterDataType>) {
+function Representer({ data }: DefaultProps<PresenterDataType>) {
   if (!data) return <></>;
   const style: TailProperties = {
     box: `w-8 h-8 bg-neutral-${data.activated ? "800" : "950"} rounded-full`,
@@ -63,4 +63,4 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
       />
     </div>
   );
-} // Presenter
+} // Representer
