@@ -8,6 +8,9 @@ import ShortcutList from "@/component/common/ShorutcutList";
 import Image from "next/image";
 import { PopupActivate } from "@/component/common/Popup";
 
+const desc: string =
+  "Hi, my name is Han Myeonghwan. Lover for computer, music, design and etc. Scroll down to see my programming journey.";
+
 export const githubAtom: RecoilState<any> = atom({
   key: "github-profile",
   default: null,
@@ -110,9 +113,7 @@ function Representer({ data }: DefaultProps<RepresenterDataType>) {
           </h2>
         </div>
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
-          {
-            "Hi, my name is han myeonghwan. i'm currently studying computer science at yonsei univ. I want to kill all of your friends."
-          }
+          {desc}
         </p>
         <ShortcutList className="mt-4 -ml-1" />
       </section>
