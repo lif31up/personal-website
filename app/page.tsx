@@ -7,7 +7,7 @@ import TailProperties, { cn } from "@/styles/TailProperties";
 
 export default function Home() {
   const style: TailProperties = {
-    box: "lg:px-80 md: px-4",
+    box: "lg:px-80 md: px-4 pb-16",
   };
   return (
     <main className={cn(style)}>
