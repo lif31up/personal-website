@@ -8,8 +8,8 @@ import Popup from "@/component/common/Popup";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "next-template",
-  description: "no description need",
+  title: "lif31up's Personal Website",
+  description: "",
 };
 
 export default function RootLayout({
