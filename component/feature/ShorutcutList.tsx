@@ -10,7 +10,8 @@ import SVG from "@/component/common/SVG";
 type ShortcutDataType = {
   url: string;
   svg_url: string;
-};
+}; // ShortcutDataType
+
 function Shortcut({ data }: DefaultProps<ShortcutDataType>) {
   if (!data) return <></>;
   const onClick = () => {
@@ -37,7 +38,7 @@ function Shortcut({ data }: DefaultProps<ShortcutDataType>) {
       />
     </button>
   );
-}
+} // Shortcut(Presenter)
 
 function ShortcutList({ className }: DefaultProps<never>) {
   const data = shortcuts.data;
@@ -50,5 +51,5 @@ function ShortcutList({ className }: DefaultProps<never>) {
       {nodeListOfShortcut}
     </section>
   );
-}
+} // ShortcutList(HOC)
 export default ShortcutList;

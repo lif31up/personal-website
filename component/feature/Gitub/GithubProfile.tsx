@@ -30,10 +30,10 @@ function GithubProfile({ className }: DefaultProps<never>) {
       <Presenter data={data} />
     </div>
   );
-}
+} // GithubProfile(Renderer)
 export default GithubProfile;
 
-type RepresenterDataType = {
+type PresenterDataType = {
   avatar_url: string;
   login: string;
   id: string;
@@ -43,7 +43,7 @@ type RepresenterDataType = {
   following: string;
 }; // RepresenterDataType
 
-function Presenter({ data }: DefaultProps<RepresenterDataType>) {
+function Presenter({ data }: DefaultProps<PresenterDataType>) {
   const style: TailProperties = {
     typo: "text-neutral-400",
     layout: "lg:flex gap-12 md:block",

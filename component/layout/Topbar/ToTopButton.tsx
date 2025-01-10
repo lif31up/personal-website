@@ -7,13 +7,13 @@ function ToTopButton({}) {
   };
   return (
     <button onClick={onClick}>
-      <Representer />
+      <Presenter />
     </button>
   );
-}
+} // ToTopButton(Renderer)
 export default ToTopButton;
 
-function Representer({}: DefaultProps<never>) {
+function Presenter({}: DefaultProps<never>) {
   const style: TailProperties = {
     box: `w-8 h-8 bg-neutral-950 hover:bg-neutral-900 rounded-full`,
     layout: "flex items-center justify-center",
@@ -31,4 +31,4 @@ function Representer({}: DefaultProps<never>) {
       />
     </div>
   );
-} // Representer
+} // Presenter

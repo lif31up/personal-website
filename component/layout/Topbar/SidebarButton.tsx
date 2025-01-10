@@ -20,7 +20,7 @@ function SidebarButton({ data }: DefaultProps<SidebarButtonDataType>) {
   return (
     <>
       <button onClick={() => onClick()}>
-        <Representer data={{ activated: isActivated }} />
+        <Presenter data={{ activated: isActivated }} />
       </button>{" "}
       <div
         ref={sidebarRef}
@@ -39,12 +39,12 @@ function SidebarButton({ data }: DefaultProps<SidebarButtonDataType>) {
       </div>
     </>
   );
-} // SidebarButton
+} // SidebarButton(Renderer)
 export default SidebarButton;
 
 type PresenterDataType = { activated: boolean };
 
-function Representer({ data }: DefaultProps<PresenterDataType>) {
+function Presenter({ data }: DefaultProps<PresenterDataType>) {
   if (!data) return <></>;
   const style: TailProperties = {
     box: `w-8 h-8 bg-neutral-${data.activated ? "800" : "950"} rounded-full`,
@@ -63,4 +63,4 @@ function Representer({ data }: DefaultProps<PresenterDataType>) {
       />
     </div>
   );
-} // Representer
+} // Presenter

@@ -25,7 +25,7 @@ function GithubRepos({ className }: DefaultProps<never>) {
       <Presenter data={data} />
     </div>
   );
-} // GithubRepos
+} // GithubRepos(Renderer)
 export default GithubRepos;
 
 function Presenter({ data }: DefaultProps<ReposBlockDataType[]>) {
@@ -46,7 +46,7 @@ function Presenter({ data }: DefaultProps<ReposBlockDataType[]>) {
       <>{nodeListOfRepoBlock}</>
     </section>
   );
-} // GithubRepos
+} // Presenter(HOC)
 
 type ReposBlockDataType = {
   name: string;
@@ -102,7 +102,7 @@ function ReposBlock({ data }: DefaultProps<ReposBlockDataType>) {
       )}
     </button>
   );
-} // ReposBlock
+} // ReposBlock(Presenter)
 
 const colorDict: any = {
   Python: "bg-blue-800",
