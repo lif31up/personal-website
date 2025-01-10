@@ -54,7 +54,7 @@ type RepresenterDataType = {
 
 function Representer({ data }: DefaultProps<RepresenterDataType>) {
   const style: TailProperties = {
-    typo: "text-white",
+    typo: "text-neutral-400",
     layout: "lg:flex gap-12 md:block",
     box: "w-full h-fit",
   };
@@ -72,9 +72,9 @@ function Representer({ data }: DefaultProps<RepresenterDataType>) {
         />
       </div>
       <section title="right" className="h-fit flex-col mt-2">
-        <h2 className="text-md text-neutral-400">{data.id}</h2>
+        <h2 className="text-md">{data.id}</h2>
         <div className="flex">
-          <h1 className="text-6xl">{data.login}</h1>
+          <h1 className="text-6xl text-neutral-100">{data.login}</h1>
           <GithubLinkButton />
         </div>
         <div className="flex text-neutral-400 items-center gap-2">
@@ -98,11 +98,11 @@ function Representer({ data }: DefaultProps<RepresenterDataType>) {
           </svg>
           <h1>{data.location}</h1>
         </div>
-        <h1>
+        <h1 className="text-neutral-100">
           <b>Repos: </b>
           {data.public_repos}
         </h1>
-        <div className="flex gap-2">
+        <div className="flex gap-2 text-neutral-100">
           <h1>
             <b>Follwers: </b>
             {data.followers}
