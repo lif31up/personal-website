@@ -39,6 +39,7 @@ export default GithubRepos;
 function Representer({ data }: DefaultProps<ReposBlockDataType[]>) {
   const nodeListOfRepoBlock: ReactElement[] = [];
   data?.forEach((element: ReposBlockDataType, index: number) => {
+    if (element.description === "READ.md") return;
     nodeListOfRepoBlock.push(<ReposBlock data={element} key={index} />);
   });
   const style: TailProperties = {
@@ -60,14 +61,15 @@ type ReposBlockDataType = {
   svn_url: string;
   url: string;
   description: string;
+  language: string;
 }; // ReposBlockDataType
 
 function ReposBlock({ data }: DefaultProps<ReposBlockDataType>) {
   if (!data) return <></>;
   const style: TailProperties = {
     layout: "grid",
-    box: "w-full h-fit py-2 lg:px-4 md:px-0",
-    typo: "text-white",
+    box: "w-full h-fit pt-2 pb-3 lg:px-4 md:px-0",
+    typo: "text-neutral-400",
     bg_border: "xl:bg-neutral-950 md:bg-transparent xl:hover:bg-neutral-900",
     etc: "border-neutral-600 cursor-pointer",
   };
@@ -77,7 +79,6 @@ function ReposBlock({ data }: DefaultProps<ReposBlockDataType>) {
       onClick={() => window.open(data.svn_url)}
       title={data.url}
     >
-      <h1 className="w-fit text-neutral-100 font-medium">{data.name}</h1>
       <div className="flex items-center gap-2 text-neutral-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -94,10 +95,27 @@ function ReposBlock({ data }: DefaultProps<ReposBlockDataType>) {
             strokeLinejoin="round"
           />
         </svg>
-        <p className="text-sm text-left">
-          {data.description ? data.description : data.url}
-        </p>
+        <h1 className="w-fit text-neutral-200 font-medium">{data.name}</h1>
       </div>
+      <p className="text-sm text-left">
+        {data.description ? data.description : data.url}
+      </p>
+      {data.language ? (
+        <div className="flex items-center gap-2 mt-2">
+          <div className={`w-3 h-3 rounded-full ${colorDict[data.language]}`} />
+          <h1 className="text-xs text-neutral-200">{data.language}</h1>
+        </div>
+      ) : (
+        <></>
+      )}
     </button>
   );
 } // ReposBlock
+
+const colorDict: any = {
+  Python: "bg-blue-800",
+  C: "bg-gray-400",
+  TypeScript: "bg-blue-600",
+  "Jupyter Notebook": "bg-orange-600",
+  default: "bg-gray-200",
+}; // colorDict
