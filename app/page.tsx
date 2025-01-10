@@ -4,6 +4,7 @@ import GithubRepos from "@/component/feature/Gitub/GithubRepos";
 import GithubProfile from "@/component/feature/Gitub/GithubProfile";
 import { RecoilRoot } from "recoil";
 import TailProperties, { cn } from "@/styles/TailProperties";
+import ReactQueryProvider from "@/utils/ReactQuery";
 
 export default function Home() {
   const style: TailProperties = {
@@ -12,8 +13,10 @@ export default function Home() {
   return (
     <section className={cn(style)}>
       <RecoilRoot>
-        <GithubProfile className="mt-2" />
-        <GithubRepos className="pt-16" />
+        <ReactQueryProvider>
+          <GithubProfile className="mt-2" />
+          <GithubRepos className="pt-16" />
+        </ReactQueryProvider>
       </RecoilRoot>
     </section>
   );

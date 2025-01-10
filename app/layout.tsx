@@ -21,10 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReactQueryProvider>
-          <Topbar data={{ height: "3.5rem" }} />
-          <main>{children}</main>
-        </ReactQueryProvider>
+        <Topbar data={{ height: "3.5rem" }} />
+        <main>{children}</main>
       </body>
     </html>
   );
