@@ -10,11 +10,11 @@ export default function Home() {
     box: "lg:px-80 md: px-4 pb-16",
   };
   return (
-    <main className={cn(style)}>
+    <section className={cn(style)}>
       <RecoilRoot>
         <GithubProfile className="mt-2" />
         <GithubRepos className="pt-16" />
       </RecoilRoot>
-    </main>
+    </section>
   );
 }

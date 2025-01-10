@@ -4,6 +4,7 @@ import "./globals.css";
 import React from "react";
 import Topbar from "@/component/layout/Topbar/Topbar";
 import Popup from "@/component/common/Popup";
+import ReactQueryProvider from "@/utils/ReactQuery";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Topbar data={{ height: "3.5rem" }} />
-        {
-          // <Popup data={{ animation: "_anime-slp-vanish-in" }} />
-        }
-        <>{children}</>
+        <ReactQueryProvider>
+          <Topbar data={{ height: "3.5rem" }} />
+          <main>{children}</main>
+        </ReactQueryProvider>
       </body>
     </html>
   );

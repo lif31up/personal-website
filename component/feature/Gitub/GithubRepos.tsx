@@ -1,42 +1,34 @@
-"use client";
-
-import { atom, RecoilState, SetterOrUpdater, useRecoilState } from "recoil";
 import DefaultProps from "@/utils/DefaultProps";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import TailProperties, { cn } from "@/styles/TailProperties";
+import { useQuery } from "@tanstack/react-query";
 
-export const reposAtom: RecoilState<any> = atom({
-  key: "github-repos",
-  default: null,
-}); // reposAtom
-
-const fetchRepos = (username: string, setData: SetterOrUpdater<any>) =>
-  fetch(`https://api.github.com/users/${username}/repos`)
+async function queryFunction() {
+  return await fetch(`https://api.github.com/users/lif31up/repos`)
     .then((response) => {
       if (!response.ok) return null;
       return response.json();
     })
     .then((data) => {
-      setData(data);
       return data;
     });
-// fetchRepos:: success ? JSON : null
+} // queryFunction:: success ? JSON : null
 
 function GithubRepos({ className }: DefaultProps<never>) {
-  const [reposData, setReposData] = useRecoilState<any>(reposAtom);
-  useEffect(() => {
-    console.log(fetchRepos("lif31up", setReposData));
-  }, []);
-  if (!reposData) return <></>;
+  const { data, isLoading, isError } = useQuery({
+    queryFn: async () => await queryFunction(),
+    queryKey: ["github-repos"], //Array according to Documentation
+  });
+  if (isLoading || isError) return <></>;
   return (
     <div className={className}>
-      <Representer data={reposData} />
+      <Presenter data={data} />
     </div>
   );
 } // GithubRepos
 export default GithubRepos;
 
-function Representer({ data }: DefaultProps<ReposBlockDataType[]>) {
+function Presenter({ data }: DefaultProps<ReposBlockDataType[]>) {
   const nodeListOfRepoBlock: ReactElement[] = [];
   data?.forEach((element: ReposBlockDataType, index: number) => {
     if (element.description === "READ.md") return;

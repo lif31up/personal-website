@@ -1,45 +1,36 @@
-"use client";
-
-import { useEffect } from "react";
-import { atom, RecoilState, SetterOrUpdater, useRecoilState } from "recoil";
 import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import ShortcutList from "@/component/feature/ShorutcutList";
 import Image from "next/image";
 import { PopupActivate } from "@/component/common/Popup";
+import { useQuery } from "@tanstack/react-query";
 
 const desc: string =
   "Hi, my name is Han Myeonghwan. Lover for computer, music, design and etc. Scroll down to see my programming journey.";
 
-export const githubAtom: RecoilState<any> = atom({
-  key: "github-profile",
-  default: null,
-}); // githubAtom
-
-const fetchGithub = (username: string, setData: SetterOrUpdater<any>) =>
-  fetch(`https://api.github.com/users/${username}`)
+async function queryFunction() {
+  return await fetch(`https://api.github.com/users/lif31up`)
     .then((response) => {
       if (!response.ok) return null;
       return response.json();
     })
     .then((data) => {
-      setData(data);
       return data;
     });
-// fetchGithub:: success ? JSON : null
+} // queryFunction:: success ? JSON : null
 
 function GithubProfile({ className }: DefaultProps<never>) {
-  const [githubData, setGithubData] = useRecoilState<any>(githubAtom);
-  useEffect(() => {
-    console.log(fetchGithub("lif31up", setGithubData));
-  }, []);
-  if (!githubData) return <></>;
+  const { data, isLoading, isError } = useQuery({
+    queryFn: async () => await queryFunction(),
+    queryKey: ["github-profile"], //Array according to Documentation
+  });
+  if (isLoading || isError) return <></>;
   return (
     <div className={className}>
-      <Representer data={githubData} />
+      <Presenter data={data} />
     </div>
   );
-} // GithubProfile(Container)
+}
 export default GithubProfile;
 
 type RepresenterDataType = {
@@ -52,7 +43,7 @@ type RepresenterDataType = {
   following: string;
 }; // RepresenterDataType
 
-function Representer({ data }: DefaultProps<RepresenterDataType>) {
+function Presenter({ data }: DefaultProps<RepresenterDataType>) {
   const style: TailProperties = {
     typo: "text-neutral-400",
     layout: "lg:flex gap-12 md:block",
@@ -119,7 +110,7 @@ function Representer({ data }: DefaultProps<RepresenterDataType>) {
       </section>
     </section>
   );
-} // Representer
+} // Presenter
 
 const GithubLinkButton = () => {
   const style: TailProperties = {
