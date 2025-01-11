@@ -3,37 +3,47 @@ import { ReactElement } from "react";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import { useQuery } from "@tanstack/react-query";
 
+// Async function to fetch data from the GitHub API
 async function queryFunction() {
-  return await fetch(`https://api.github.com/users/lif31up/repos`)
+  return await fetch(`https://api.github.com/users/lif31up/repos`) // Fetch list of repos
     .then((response) => {
-      if (!response.ok) return null;
-      return response.json();
+      if (!response.ok) return null; // Return null if response isn't OK
+      return response.json(); // Parse JSON if successful
     })
     .then((data) => {
-      return data;
+      return data; // Return parsed data
     });
 } // queryFunction:: success ? JSON : null
 
+// Container/Main component to fetch and display GitHub repositories
 function GithubRepos({ className }: DefaultProps<never>) {
+  // Use React Query to manage data fetching state
   const { data, isLoading, isError } = useQuery({
-    queryFn: async () => await queryFunction(),
-    queryKey: ["github-repos"], //Array according to Documentation
-  });
+    queryFn: async () => await queryFunction(), // Fetch function
+    queryKey: ["github-repos"], // Cache key for query
+  }); // useQuery()
+  // If data is loading or an error occurred, render nothing
   if (isLoading || isError) return <></>;
+  // Render the RepoBlockRender component with fetched data
   return (
     <div className={className}>
-      <Presenter data={data} />
+      <RepoBlockRender data={data} />
     </div>
   );
-} // GithubRepos(Renderer)
+} // GithubRepos(Container)
 export default GithubRepos;
 
-function Presenter({ data }: DefaultProps<ReposBlockDataType[]>) {
-  const nodeListOfRepoBlock: ReactElement[] = [];
-  data?.forEach((element: ReposBlockDataType, index: number) => {
-    if (element.description === "READ.md") return;
-    nodeListOfRepoBlock.push(<ReposBlock data={element} key={index} />);
+// Render Component to render RepoBlock
+function RepoBlockRender({ data }: DefaultProps<RepoBlockDataType[]>) {
+  // If data is loading or an error occurred, render nothing
+  if (!data) return <></>;
+  const nodeListOfRepoBlock: ReactElement[] = []; // List of repository components
+  // Generate repository blocks for each item in data
+  data.forEach((element: RepoBlockDataType, index: number) => {
+    if (element.description === "READ.md") return; // Skip README repositories
+    nodeListOfRepoBlock.push(<RepoBlock data={element} key={index} />); // Add repository block
   });
+  // Styling for the RepoBlockRender container
   const style: TailProperties = {
     box: "w-full h-fit",
     layout: "grid gap-2",
@@ -46,9 +56,9 @@ function Presenter({ data }: DefaultProps<ReposBlockDataType[]>) {
       <>{nodeListOfRepoBlock}</>
     </section>
   );
-} // Presenter(HOC)
+} // RepoBlockRender(Renderer)
 
-type ReposBlockDataType = {
+type RepoBlockDataType = {
   name: string;
   svn_url: string;
   url: string;
@@ -56,8 +66,11 @@ type ReposBlockDataType = {
   language: string;
 }; // ReposBlockDataType
 
-function ReposBlock({ data }: DefaultProps<ReposBlockDataType>) {
+// Sub Component to render an individual repository block
+function RepoBlock({ data }: DefaultProps<RepoBlockDataType>) {
+  // If data is loading or an error occurred, render nothing
   if (!data) return <></>;
+  // Styling for the Presenter container
   const style: TailProperties = {
     layout: "grid",
     box: "w-full h-fit pt-2 pb-3 lg:px-4 md:px-0",

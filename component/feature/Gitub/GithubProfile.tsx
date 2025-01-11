@@ -2,35 +2,40 @@ import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import ShortcutList from "@/component/feature/ShorutcutList";
 import Image from "next/image";
-import { PopupActivate } from "@/component/common/Popup";
 import { useQuery } from "@tanstack/react-query";
 
+// Description to my profile
 const desc: string =
   "Hi, my name is Han Myeonghwan. Lover for computer, music, design and etc. Scroll down to see my programming journey.";
 
 async function queryFunction() {
-  return await fetch(`https://api.github.com/users/lif31up`)
+  return await fetch(`https://api.github.com/users/lif31up`) // Fetch lif31up github profile
     .then((response) => {
-      if (!response.ok) return null;
-      return response.json();
+      if (!response.ok) return null; // Return null if response isn't OK
+      return response.json(); // Parse JSON if successful
     })
     .then((data) => {
-      return data;
+      return data; // Return parsed data
     });
 } // queryFunction:: success ? JSON : null
 
+// Container/Main component to fetch and display GitHub repositories
 function GithubProfile({ className }: DefaultProps<never>) {
+  // Use React Query to manage data fetching state
   const { data, isLoading, isError } = useQuery({
+    // Fetch function
     queryFn: async () => await queryFunction(),
-    queryKey: ["github-profile"], //Array according to Documentation
-  });
+    queryKey: ["github-profile"], // Cache key for query
+  }); // useQuery()
+  // If data is loading or an error occurred, render nothing
   if (isLoading || isError) return <></>;
+  // Render the Presenter component with fetched data
   return (
     <div className={className}>
       <Presenter data={data} />
     </div>
   );
-} // GithubProfile(Renderer)
+} // GithubProfile(Container)
 export default GithubProfile;
 
 type PresenterDataType = {
@@ -41,15 +46,18 @@ type PresenterDataType = {
   public_repos: string;
   followers: string;
   following: string;
-}; // RepresenterDataType
+}; // PresenterDataType
 
+// Presentational Component to display github profile info
 function Presenter({ data }: DefaultProps<PresenterDataType>) {
+  // If data is loading or an error occurred, render nothing
+  if (!data) return <></>;
+  // Styling for the Presenter container
   const style: TailProperties = {
     typo: "text-neutral-400",
     layout: "lg:flex gap-12 md:block",
     box: "w-full h-fit",
   };
-  if (!data) return <></>;
   return (
     <section className={cn(style)}>
       <div className="w-fit h-fit">
@@ -110,22 +118,23 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
       </section>
     </section>
   );
-} // Presenter
+} // Presenter()
 
+// Sub Component to copy the current page link.
 const GithubLinkButton = () => {
+  // Styling for the button
   const style: TailProperties = {
     bg_border: "bg-neutral-950 hover:bg-neutral-800",
     typo: "text-white",
     etc: "rounded-full",
     box: "w-fit h-fit p-1",
-  };
+  }; // style
   return (
     <button
       title="share"
       className={cn(style)}
       onClick={() => {
-        navigator.clipboard.writeText(window.location.href);
-        PopupActivate("copied");
+        navigator.clipboard.writeText(window.location.href); // copied the current location url to clipboard
       }}
     >
       <svg
@@ -150,4 +159,4 @@ const GithubLinkButton = () => {
       </svg>
     </button>
   );
-}; // GithubButton
+}; // GithubButton()

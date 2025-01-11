@@ -1,3 +1,5 @@
+// DISABLED
+
 import TailProperties, { cn } from "@/styles/TailProperties";
 import DefaultProps from "@/utils/DefaultProps";
 import Sidebar from "@/component/layout/Topbar/Sidebar";
