@@ -3,6 +3,14 @@ import TailProperties, { cn } from "@/styles/TailProperties";
 import ShortcutList from "@/component/feature/ShorutcutList";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
+import ReactQueryProvider from "@/utils/ReactQuery";
+
+const GithubProfile = () => (
+  <ReactQueryProvider>
+    <Container />
+  </ReactQueryProvider>
+); // GithubProfile()
+export default GithubProfile;
 
 // Description to my profile
 const desc: string =
@@ -20,7 +28,7 @@ async function queryFunction() {
 } // queryFunction:: success ? JSON : null
 
 // Container/Main component to fetch and display GitHub repositories
-function GithubProfile({ className }: DefaultProps<never>) {
+function Container() {
   // Use React Query to manage data fetching state
   const { data, isLoading, isError } = useQuery({
     // Fetch function
@@ -30,13 +38,8 @@ function GithubProfile({ className }: DefaultProps<never>) {
   // If data is loading or an error occurred, render nothing
   if (isLoading || isError) return <></>;
   // Render the Presenter component with fetched data
-  return (
-    <div className={className}>
-      <Presenter data={data} />
-    </div>
-  );
-} // GithubProfile(Container)
-export default GithubProfile;
+  return <Presenter data={data} />;
+} // Container
 
 type PresenterDataType = {
   avatar_url: string;
@@ -114,7 +117,7 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
           {desc}
         </p>
-        <ShortcutList className="mt-4 -ml-1" />
+        <ShortcutList className="mt-3 -ml-1" />
       </section>
     </section>
   );

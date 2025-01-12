@@ -2,6 +2,14 @@ import DefaultProps from "@/utils/DefaultProps";
 import { ReactElement } from "react";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import { useQuery } from "@tanstack/react-query";
+import ReactQueryProvider from "@/utils/ReactQuery";
+
+const GithubRepos = () => (
+  <ReactQueryProvider>
+    <Container />
+  </ReactQueryProvider>
+); // GithubRepos()
+export default GithubRepos;
 
 // Async function to fetch data from the GitHub API
 async function queryFunction() {
@@ -16,7 +24,7 @@ async function queryFunction() {
 } // queryFunction:: success ? JSON : null
 
 // Container/Main component to fetch and display GitHub repositories
-function GithubRepos({ className }: DefaultProps<never>) {
+function Container() {
   // Use React Query to manage data fetching state
   const { data, isLoading, isError } = useQuery({
     queryFn: async () => await queryFunction(), // Fetch function
@@ -25,13 +33,8 @@ function GithubRepos({ className }: DefaultProps<never>) {
   // If data is loading or an error occurred, render nothing
   if (isLoading || isError) return <></>;
   // Render the RepoBlockRender component with fetched data
-  return (
-    <div className={className}>
-      <RepoBlockRender data={data} />
-    </div>
-  );
+  return <RepoBlockRender data={data} />;
 } // GithubRepos(Container)
-export default GithubRepos;
 
 // Render Component to render RepoBlock
 function RepoBlockRender({ data }: DefaultProps<RepoBlockDataType[]>) {

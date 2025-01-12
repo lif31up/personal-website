@@ -3,8 +3,9 @@
 import TailProperties, { cn } from "@/styles/TailProperties";
 import { RecoilRoot } from "recoil";
 import DefaultProps from "@/utils/DefaultProps";
-import { useEffect } from "react";
+import { useRef } from "react";
 import ToTopButton from "@/component/layout/Topbar/ToTopButton";
+import { useShrink } from "@/utils/hook/ReusableHook";
 
 // ID for the topbar element, used for DOM manipulation
 const topbarId: string = "topbar--0";
@@ -16,39 +17,23 @@ type TopbarDataType = { height: string }; // TopbarDataType
  * Displays a fixed navigation bar at the top of the page.
  * Adjusts body padding and dynamically adds a border when scrolling on small screens.*/
 function Topbar({ data }: DefaultProps<TopbarDataType>) {
+  const elementRef = useRef<any>(null);
   // useEffect to handle dynamic styling and scroll behavior
-  useEffect(() => {
-    if (!data) return; // Exit if no data is provided
-    // Adjust body padding to account for topbar height
-    document.body.style.paddingTop = data.height;
-    // Get the topbar element by its ID
-    const element: HTMLElement | null = document.getElementById(topbarId);
-    // Add scroll event listener for small screens (width <= 600px)
-    if (window.innerWidth > 600) return;
-    if (element) {
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 0) {
-          // Add a border when scrolling down
-          element.style.borderBottom = "solid rgb(38,38,38) 1px";
-          // Remove the border when scrolled to the top
-        } else element.style.borderBottom = "none";
-      });
-    }
-  }, []); // Dependency array is empty to ensure this effect runs only once on mount
+  useShrink(elementRef, data);
   // Return nothing if no data is provided
   if (!data) return <></>;
   // Styling for the topbar container
   const style: TailProperties = {
     layout: "flex items-center justify-start gap-4",
-    bg_border: "bg-black",
+    bg_border: "bg-neutral-950",
     box: "w-full px-4 pb-1",
-    etc: "",
   }; // style
   // Render the topbar component
   return (
     <RecoilRoot>
       <section
-        className="h-fit w-full z-50 top-0 left-0 fixed shadow-black shadow-sm"
+        className="h-fit w-full z-50 top-0 left-0 fixed shadow-black shadow-xs"
+        ref={elementRef}
         id={topbarId}
       >
         <div className={cn(style)} style={{ height: data.height }}>
