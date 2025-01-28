@@ -63,14 +63,13 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
   };
   return (
     <section className={cn(style)}>
-      <div className="w-fit h-fit">
+      <div className="w-fit h-fit animate__animated animate__flipInY">
         <Image
           src={data.avatar_url}
           alt="profile_img"
           width={512}
           height={512}
           className="rounded-full"
-          style={{ outline: "solid white 1px" }}
         />
       </div>
       <section title="right" className="h-fit flex-col mt-2">

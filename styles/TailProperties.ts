@@ -11,13 +11,13 @@ export default interface TailProperties {
 }
 
 export function cn(properties: TailProperties): string {
-  return `${properties.position ?? properties.position} ${
-    properties.bg_border ?? properties.bg_border
-  } ${properties.box ?? properties.box} ${
-    properties.layout ?? properties.layout
-  } ${properties.typo ?? properties.typo} ${
-    properties.anime_transit ?? properties.anime_transit
-  } ${properties.transform ?? properties.transform} ${
-    properties.interact ?? properties.interact
-  } ${properties.etc ?? properties.etc}`;
+  return `${properties.position ? properties.position : ""} ${
+    properties.bg_border ? properties.bg_border : ""
+  } ${properties.box ? properties.box : ""} ${
+    properties.layout ? properties.layout : ""
+  } ${properties.typo ? properties.typo : ""} ${
+    properties.anime_transit ? properties.anime_transit : ""
+  } ${properties.transform ? properties.transform : ""} ${
+    properties.interact ? properties.interact : ""
+  } ${properties.etc ? properties.etc : ""}`;
 }
