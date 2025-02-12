@@ -79,7 +79,7 @@ function RepoBlock({ data }: DefaultProps<RepoBlockDataType>) {
     box: "w-full h-fit pt-2 pb-3 lg:px-4 md:px-0",
     typo: "text-neutral-400",
     bg_border: "xl:bg-neutral-950 md:bg-transparent xl:hover:bg-neutral-900",
-    etc: "border-neutral-600 cursor-pointer",
+    etc: "rounded-md border-neutral-600 cursor-pointer",
   };
   return (
     <button

@@ -4,6 +4,7 @@ import GithubRepos from "@/component/feature/Gitub/GithubRepos";
 import GithubProfile from "@/component/feature/Gitub/GithubProfile";
 import { RecoilRoot } from "recoil";
 import TailProperties, { cn } from "@/styles/TailProperties";
+import Interest from "@/component/feature/Interest";
 
 export default function Home() {
   const style: TailProperties = {
@@ -14,6 +15,9 @@ export default function Home() {
       <RecoilRoot>
         <section className="pt-4 pb-4 px-4 lg:pb-12 lg:px-80 bg-neutral-950">
           <GithubProfile />
+        </section>
+        <section className="px-80 mt-12">
+          <Interest />
         </section>
         <section className="pt-16 px-4 lg:px-80 bg-black">
           <GithubRepos />
