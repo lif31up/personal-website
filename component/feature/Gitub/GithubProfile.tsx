@@ -59,7 +59,7 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
   const style: TailProperties = {
     typo: "text-neutral-400",
     layout: "lg:flex gap-12 md:block",
-    box: "w-full h-fit",
+    box: "w-full h-fit pt-4 pb-4 px-4 lg:pb-12 lg:px-80",
   };
   return (
     <section className={cn(style)}>

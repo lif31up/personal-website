@@ -20,17 +20,19 @@ function Presenter({ data }: DefaultProps<RepresenterDataType>) {
   });
 
   const style: TailProperties = {
-    box: "w-full h-64 py-8 px-8",
-    layout: "flex-col",
+    box: "w-full h-full pt-4 lg:pb-8 pb-4 pb-4 px-4",
+    layout: "grid justify-items-start items-start",
     typo: "text-white",
     bg_border: "rounded-md bg-neutral-950 hover:bg-neutral-900",
   };
   return (
-    <section className={cn(style)}>
-      <h1 className="lg:ml-2 md:ml-0 mb-2 text-white font-bold text-xl">
-        Interest
-      </h1>
-      <div className="ml-4">{nodeListOfInterestBlock}</div>
+    <section className="w-full h-fit lg:pb-12 lg:px-80">
+      <div className={cn(style)}>
+        <h1 className="lg:ml-2 md:ml-0 mb-2 text-white font-bold text-xl">
+          Interest
+        </h1>
+        <div className="lg:ml-6 ml-4">{nodeListOfInterestBlock}</div>
+      </div>
     </section>
   );
 } // Representer
@@ -38,7 +40,7 @@ function Presenter({ data }: DefaultProps<RepresenterDataType>) {
 function InterestBlock({ data }: DefaultProps<string>) {
   return (
     <li>
-      <h1 className="text-sm">{data}</h1>
+      <h1 className="text-md">{data}</h1>
     </li>
   );
 }

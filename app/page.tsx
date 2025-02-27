@@ -13,13 +13,9 @@ export default function Home() {
   return (
     <section className={cn(style)}>
       <RecoilRoot>
-        <section className="pt-4 pb-4 px-4 lg:pb-12 lg:px-80 bg-neutral-950">
-          <GithubProfile />
-        </section>
-        <section className="px-80 mt-12">
-          <Interest />
-        </section>
-        <section className="pt-16 px-4 lg:px-80 bg-black">
+        <GithubProfile />
+        <Interest />
+        <section className="lg:pt-4 pt-8 px-4 lg:px-80 bg-black">
           <GithubRepos />
         </section>
       </RecoilRoot>
