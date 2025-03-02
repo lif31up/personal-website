@@ -22,7 +22,7 @@ export function useSVG(elementRef: MutableRefObject<any>, data: any) {
   }, [elementRef, data]);
 } // useSVG()
 
-export function useShrink(elementRef: MutableRefObject<any>, data: any) {
+export function useTopbarChange(elementRef: MutableRefObject<any>, data: any) {
   useEffect(() => {
     const element = elementRef.current; // Access the <object> DOM element
     if (!data || !element) return; // Exit if no data is provided
@@ -34,9 +34,9 @@ export function useShrink(elementRef: MutableRefObject<any>, data: any) {
       window.addEventListener("scroll", () => {
         if (window.scrollY > 0) {
           // Add a border when scrolling down
-          element.style.borderBottom = "solid rgb(38,38,38) 1px";
+          element.style.bg_border = "transparent";
           // Remove the border when scrolled to the top
-        } else element.style.borderBottom = "none";
+        } else element.style.bg_border = "transparent";
       });
     }
   }, []); // Dependency array is empty to ensure this effect runs only once on mount

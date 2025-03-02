@@ -20,12 +20,12 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
   });
 
   const style: TailProperties = {
-    box: "w-full h-full lg:mt-4 mt-8 lg:mb-0 mb-2 px-4 lg:px-0",
+    box: "w-full h-full pb-4 lg:mt-4 mt-4 lg:mb-0 mb-2 lg:px-0 border-b border-b-neutral-800",
     layout: "grid justify-items-start items-start",
     typo: "text-white",
   };
   return (
-    <section className="w-full h-fit lg:pb-12 lg:px-80">
+    <section className="w-full h-fit lg:pb-12 lg:px-80 px-4">
       <div className={cn(style)}>
         <h1 className="mb-2 text-white font-bold text-xl">Interests</h1>
         <div className="lg:ml-6 ml-4 text-neutral-200">
