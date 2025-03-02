@@ -5,7 +5,7 @@ import { RecoilRoot } from "recoil";
 import DefaultProps from "@/utils/DefaultProps";
 import { useRef } from "react";
 import ToTopButton from "@/component/layout/Topbar/ToTopButton";
-import { useShrink } from "@/utils/hook/ReusableHook";
+import { useTopbarChange } from "@/utils/hook/Hooks";
 
 // ID for the topbar element, used for DOM manipulation
 const topbarId: string = "topbar--0";
@@ -19,7 +19,7 @@ type TopbarDataType = { height: string }; // TopbarDataType
 function Topbar({ data }: DefaultProps<TopbarDataType>) {
   const elementRef = useRef<any>(null);
   // useEffect to handle dynamic styling and scroll behavior
-  useShrink(elementRef, data);
+  useTopbarChange(elementRef, data);
   // Return nothing if no data is provided
   if (!data) return <></>;
   // Styling for the topbar container

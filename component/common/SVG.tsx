@@ -1,7 +1,7 @@
 "use client";
 import DefaultProps from "@/utils/DefaultProps";
 import { useRef } from "react";
-import { useSVG } from "@/utils/hook/ReusableHook";
+import { useSVG } from "@/utils/hook/Hooks";
 
 export type SVGDataType = {
   svg_url: string;
