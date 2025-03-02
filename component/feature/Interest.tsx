@@ -20,20 +20,21 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
   });
 
   const style: TailProperties = {
-    box: "w-full h-full lg:mt-4 mt-0 px-4 lg:px-0",
+    box: "w-full h-full lg:mt-4 mt-8 lg:mb-0 mb-2 px-4 lg:px-0",
     layout: "grid justify-items-start items-start",
     typo: "text-white",
   };
   return (
     <section className="w-full h-fit lg:pb-12 lg:px-80">
       <div className={cn(style)}>
-        <h1 className="lg:ml-2 md:ml-0 mb-2 text-white font-bold text-xl">
-          Interests
-        </h1>
-        <div className="lg:ml-6 ml-4">{nodeListOfInterestBlock}</div>
-        <p className="ml-2 mt-2 text-neutral-400 text-md">
-          I'm also skilled at front-end development: react. typescript. various
-          stylesheet-related skills. web design pattern. nextjs and etc.
+        <h1 className="mb-2 text-white font-bold text-xl">Interests</h1>
+        <div className="lg:ml-6 ml-4 text-neutral-200">
+          {nodeListOfInterestBlock}
+        </div>
+        <p className="mt-4 text-neutral-400 text-md">
+          {
+            "I'm also skilled at front-end development: react. typescript. various stylesheet-related skills. web design pattern. nextjs and etc."
+          }
         </p>
       </div>
     </section>
