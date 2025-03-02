@@ -25,7 +25,7 @@ function Topbar({ data }: DefaultProps<TopbarDataType>) {
   // Styling for the topbar container
   const style: TailProperties = {
     layout: "flex items-center justify-start gap-4",
-    bg_border: "bg-black",
+    bg_border: "bg-black lg:bg-transparent",
     box: "w-full px-4 pb-1",
   }; // style
   // Render the topbar component
