@@ -59,7 +59,7 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
   const style: TailProperties = {
     typo: "text-neutral-400",
     layout: "lg:flex gap-12 md:block",
-    box: "w-full h-fit pt-4 pb-4 px-4 lg:pb-12 lg:px-80",
+    box: "w-fit h-fit pt-4 pb-4 px-4 lg:pb-12 lg:px-80",
   };
   return (
     <section className={cn(style)}>
@@ -70,6 +70,7 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
           width={512}
           height={512}
           className="rounded-full"
+          style={{ boxShadow: "0 0 100vw 15vw rgba(240, 240, 240, 0.05)" }}
         />
       </div>
       <section title="right" className="h-fit flex-col mt-2">

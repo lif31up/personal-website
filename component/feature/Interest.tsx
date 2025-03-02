@@ -8,11 +8,11 @@ function Interest({}) {
 } // Interest
 export default Interest;
 
-type RepresenterDataType = {
+type PresenterDataType = {
   interest: string[];
 }; // PresenterDataType
 
-function Presenter({ data }: DefaultProps<RepresenterDataType>) {
+function Presenter({ data }: DefaultProps<PresenterDataType>) {
   if (!data) return <></>;
   const nodeListOfInterestBlock: ReactElement[] = [];
   data.interest.forEach((name: string, index: number) => {
@@ -20,18 +20,21 @@ function Presenter({ data }: DefaultProps<RepresenterDataType>) {
   });
 
   const style: TailProperties = {
-    box: "w-full h-full pt-4 lg:pb-8 pb-4 pb-4 px-4",
+    box: "w-full h-full lg:mt-4 mt-0 px-4 lg:px-0",
     layout: "grid justify-items-start items-start",
     typo: "text-white",
-    bg_border: "rounded-md bg-neutral-950 hover:bg-neutral-900",
   };
   return (
     <section className="w-full h-fit lg:pb-12 lg:px-80">
       <div className={cn(style)}>
         <h1 className="lg:ml-2 md:ml-0 mb-2 text-white font-bold text-xl">
-          Interest
+          Interests
         </h1>
         <div className="lg:ml-6 ml-4">{nodeListOfInterestBlock}</div>
+        <p className="ml-2 mt-2 text-neutral-400 text-md">
+          I'm also skilled at front-end development: react. typescript. various
+          stylesheet-related skills. web design pattern. nextjs and etc.
+        </p>
       </div>
     </section>
   );
