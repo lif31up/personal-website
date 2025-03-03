@@ -1,6 +1,10 @@
 /*external sources*/
 @import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
 @import "animate.css/animate.css";
+._font-roboto {
+  font-family: Roboto sans-serif;
+}
+
 ._wh-screen {
   width: 100vw;
   height: 100vh;

@@ -53,7 +53,7 @@ function RepoBlockRender({ data }: DefaultProps<RepoBlockDataType[]>) {
   });
   // Styling for the RepoBlockRender container
   const style: TailProperties = {
-    box: "w-full h-fit",
+    box: "w-full h-fit lg:pt-4 pt-8 px-4 lg:px-80",
     layout: "grid gap-2",
   };
   return (
