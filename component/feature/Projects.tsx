@@ -17,7 +17,7 @@ function Container({ data }: DefaultProps<ProjectDataType[]>) {
   const nodeListOfProjects: ReactElement[] = [];
   data?.forEach((element, index) => {
     nodeListOfProjects.push(
-      <li key={index} className="">
+      <li key={index} className="pb-2">
         <div>
           <a
             href={element.url0}

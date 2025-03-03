@@ -29,7 +29,9 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
         <div className="lg:ml-6 ml-4 text-neutral-200">
           {nodeListOfInterestBlock}
         </div>
-        <p className="mt-4 text-neutral-400 text-md">{data.desc}</p>
+        <p className="mt-4 text-md text-neutral-400 pr-42 leading-tight pb-5 border-b border-neutral-800">
+          {data.desc}
+        </p>
       </div>
     </section>
   );
