@@ -20,8 +20,8 @@ export default function Home() {
         <SVG
           data={{
             svg_url: "/profile.svg",
-            width: 8,
-            height: 8,
+            width: 12,
+            height: 12,
             color: "white",
             fill: "transparent",
           }}
