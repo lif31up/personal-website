@@ -43,7 +43,12 @@ function RepoBlockRender({ data }: DefaultProps<RepoBlockDataType[]>) {
   const nodeListOfRepoBlock: ReactElement[] = []; // List of repository components
   // Generate repository blocks for each item in data
   data.forEach((element: RepoBlockDataType, index: number) => {
-    if (element.description === "READ.md") return; // Skip README repositories
+    if (
+      element.name === "lif31up" ||
+      element.name === "lif31up.github.io" ||
+      element.name === "formssafe"
+    )
+      return; // Skip README repositories
     nodeListOfRepoBlock.push(<RepoBlock data={element} key={index} />); // Add repository block
   });
   // Styling for the RepoBlockRender container
@@ -125,5 +130,6 @@ const colorDict: any = {
   C: "bg-gray-400",
   TypeScript: "bg-blue-600",
   "Jupyter Notebook": "bg-orange-600",
+  HTML: "bg-yellow-600",
   default: "bg-gray-200",
 }; // colorDict

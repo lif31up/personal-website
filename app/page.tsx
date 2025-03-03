@@ -1,7 +1,7 @@
 "use client";
 
-import GithubRepos from "@/component/feature/Gitub/GithubRepos";
-import GithubProfile from "@/component/feature/Gitub/GithubProfile";
+import GithubRepos from "@/component/feature/Github/GithubRepos";
+import GithubProfile from "@/component/feature/Github/GithubProfile";
 import { RecoilRoot } from "recoil";
 import Interest from "@/component/feature/Interest";
 import SVG from "@/component/common/SVG";
