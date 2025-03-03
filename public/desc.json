@@ -1,3 +1,41 @@
 {
-	"interest": ["Reinforcement Learning", "Meta-Learning", "Decision Intelligence"]
+	"interests": {
+		"desc": "I'm also skilled at front-end development: react. typescript. various stylesheet-related skills. web design pattern. nextjs and etc.",
+		"topics": [
+			"Reinforcement Learning",
+			"Meta-Learning",
+			"Decision Intelligence"
+		]
+	},
+	"description": "Hi, my name is Han Myeonghwan(한 명환). Lover for computer, music, design and etc. Scroll down to see my programming journey.",
+	"projects": [
+		{
+			"name": "Model-Agnostic-Meta-Learning for few-shot Learning",
+			"desc": "[Jupyter Notebook on CoLab]",
+			"url0": "https://github.com/lif31up/model-agnostic-meta-learning",
+			"url1": "https://colab.research.google.com/drive/1ZmtP8rMZsSN_yA6tz3IKQU0ECXeAI018#scrollTo=4IR1_oxrGN3U",
+			"comment": "Handwriting Classification wtih Omniglot Dataset: CNN Model to Predict Unseen Characters"
+		},
+		{
+			"name": "Prototypical Network for few-shot Learning",
+			"desc": "[Jupyter Notebook on CoLab]",
+			"url0": "https://github.com/lif31up/prototypical-network",
+			"url1": "https://colab.research.google.com/drive/1ZmtP8rMZsSN_yA6tz3IKQU0ECXeAI018#scrollTo=4IR1_oxrGN3U",
+			"comment": "Handwriting Classification wtih Omniglot Dataset: CNN Model to Quickly Adapt to Unseen Characters"
+		},
+		{
+			"name": "Machine Learning from Scratch",
+			"desc": "[Repository]",
+			"url0": "https://github.com/lif31up/machine-learning-from-scratch",
+			"url1": "https://github.com/lif31up/machine-learning-from-scratch/",
+			"comment": "Implement Classic AI using Numpy: Linear Regression, Logistic Regression, ADALINE and MLP"
+		},
+		{
+			"name": "2024 SAMSUNG SSAFY: FORMSSAFE",
+			"desc": "[Visit the Service]",
+			"url0": "https://github.com/lif31up/formssafe",
+			"url1": "https://formssafe.com/",
+			"comment": "Participated in Web-Service Project: Form Making/Sharing Service for Student"
+		}
+	]
 }

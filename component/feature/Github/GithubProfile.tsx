@@ -4,6 +4,7 @@ import ShortcutList from "@/component/feature/ShorutcutList";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import ReactQueryProvider from "@/utils/ReactQuery";
+import desc from "@/public/desc.json";
 
 const GithubProfile = () => (
   <ReactQueryProvider>
@@ -13,9 +14,6 @@ const GithubProfile = () => (
 export default GithubProfile;
 
 // Description to my profile
-const desc: string =
-  "Hi, my name is Han Myeonghwan. Lover for computer, music, design and etc. Scroll down to see my programming journey.";
-
 async function queryFunction() {
   return await fetch(`https://api.github.com/users/lif31up`) // Fetch lif31up github profile
     .then((response) => {
@@ -115,7 +113,7 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
           </h2>
         </div>
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
-          {desc}
+          {desc.description}
         </p>
         <ShortcutList className="mt-3 -ml-1" />
       </section>
