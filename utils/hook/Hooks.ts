@@ -32,12 +32,16 @@ export function useTopbarChange(elementRef: MutableRefObject<any>, data: any) {
     if (window.innerWidth > 600) return;
     if (element) {
       window.addEventListener("scroll", () => {
-        if (window.scrollY > 0) {
+        if (window.scrollY > 1) {
           // Add a border when scrolling down
           element.style.bg_border = "transparent";
+          element.style.borderBottom = "1px solid rgb(38, 38, 38)";
           // Remove the border when scrolled to the top
-        } else element.style.bg_border = "transparent";
-      });
-    }
+        } else {
+          element.style.bg_border = "transparent";
+          element.style.borderBottom = "none";
+        } // else
+      }); // addEventListener
+    } // if
   }, []); // Dependency array is empty to ensure this effect runs only once on mount
 }
