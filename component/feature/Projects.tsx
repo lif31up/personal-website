@@ -1,10 +1,18 @@
 import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import { ReactElement } from "react";
-import desc from "@/public/desc.json";
+import { useRecoilValue } from "recoil";
+import { descAtom } from "@/component/feature/Interests";
+import { DescInterface } from "@/utils/Interfaces";
 
-const Projects = () => <Container data={desc.projects} />;
+const Projects = () => <Container />;
 export default Projects;
+
+function Container() {
+  const desc: DescInterface = useRecoilValue(descAtom);
+  if (!desc) return <></>;
+  return <Presenter data={desc.projects} />;
+}
 
 type ProjectDataType = {
   name: string;
@@ -13,7 +21,7 @@ type ProjectDataType = {
   url1: string;
   comment: string;
 }; // ProjectDataType
-function Container({ data }: DefaultProps<ProjectDataType[]>) {
+function Presenter({ data }: DefaultProps<ProjectDataType[]>) {
   const nodeListOfProjects: ReactElement[] = [];
   data?.forEach((element, index) => {
     nodeListOfProjects.push(
