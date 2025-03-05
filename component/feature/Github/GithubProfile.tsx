@@ -4,7 +4,9 @@ import ShortcutList from "@/component/feature/ShorutcutList";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import ReactQueryProvider from "@/utils/ReactQuery";
-import desc from "@/public/desc.json";
+import { DescInterface } from "@/utils/Interfaces";
+import { useRecoilValue } from "recoil";
+import { descAtom } from "@/component/feature/Interests";
 
 const GithubProfile = () => (
   <ReactQueryProvider>
@@ -14,7 +16,7 @@ const GithubProfile = () => (
 export default GithubProfile;
 
 // Description to my profile
-async function queryFunction() {
+async function githubQueryFn() {
   return await fetch(`https://api.github.com/users/lif31up`) // Fetch lif31up github profile
     .then((response) => {
       if (!response.ok) return null; // Return null if response isn't OK
@@ -23,23 +25,29 @@ async function queryFunction() {
     .then((data) => {
       return data; // Return parsed data
     });
-} // queryFunction:: success ? JSON : null
+} // githubQueryFn:: success ? JSON : null
 
 // Container/Main component to fetch and display GitHub repositories
 function Container() {
+  const desc = useRecoilValue(descAtom);
   // Use React Query to manage data fetching state
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data: github,
+    isLoading: isLoadingGithub,
+    isError: isErrorGithub,
+  } = useQuery({
     // Fetch function
-    queryFn: async () => await queryFunction(),
+    queryFn: async () => await githubQueryFn(),
     queryKey: ["github-profile"], // Cache key for query
   }); // useQuery()
+
   // If data is loading or an error occurred, render nothing
-  if (isLoading || isError) return <></>;
+  if (isLoadingGithub || isErrorGithub || !desc) return <></>;
   // Render the Presenter component with fetched data
-  return <Presenter data={data} />;
+  return <Presenter data={{ github: github, desc: desc }} />;
 } // Container
 
-type PresenterDataType = {
+type GithubDataType = {
   avatar_url: string;
   login: string;
   id: string;
@@ -49,32 +57,38 @@ type PresenterDataType = {
   following: string;
 }; // PresenterDataType
 
+type PresenterDataType = {
+  github: GithubDataType;
+  desc: DescInterface;
+};
 // Presentational Component to display github profile info
 function Presenter({ data }: DefaultProps<PresenterDataType>) {
   // If data is loading or an error occurred, render nothing
   if (!data) return <></>;
+  const github: GithubDataType = data.github;
+  const desc: any = data.desc;
   // Styling for the Presenter container
   const style: TailProperties = {
     typo: "text-neutral-400",
     layout: "lg:flex gap-12 md:block",
-    box: "w-fit h-fit pt-4 pb-4 px-4 lg:pb-12 lg:px-80",
+    box: "w-full h-fit pt-4 pb-4 px-4 lg:pb-12 lg:px-80",
   };
   return (
     <section className={cn(style)}>
       <div className="w-fit h-fit animate__animated animate__flipInY">
         <Image
-          src={data.avatar_url}
+          src={github.avatar_url}
           alt="profile_img"
-          width={512}
-          height={512}
+          width={16 * 25}
+          height={16 * 25}
           className="rounded-full"
           style={{ boxShadow: "0 0 100vw 15vw rgba(240, 240, 240, 0.05)" }}
         />
       </div>
-      <section title="right" className="h-fit flex-col mt-2">
-        <h2 className="text-md">{data.id}</h2>
+      <section title="right" className="w-full h-fit flex-col mt-2">
+        <h2 className="text-md">{github.id}</h2>
         <div className="flex">
-          <h1 className="text-6xl text-neutral-100">{data.login}</h1>
+          <h1 className="text-6xl text-neutral-100">{github.login}</h1>
           <GithubLinkButton />
         </div>
         <div className="flex text-neutral-400 items-center gap-2">
@@ -96,20 +110,20 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
               strokeWidth="1.5"
             />
           </svg>
-          <h1>{data.location}</h1>
+          <h1>{github.location}</h1>
         </div>
         <h1 className="text-neutral-100">
           <b>Repos: </b>
-          {data.public_repos}
+          {github.public_repos}
         </h1>
         <div className="flex gap-2 text-neutral-100">
           <h1>
             <b>Follwers: </b>
-            {data.followers}
+            {github.followers}
           </h1>
           <h2>
             <b>Following: </b>
-            {data.following}
+            {github.following}
           </h2>
         </div>
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
