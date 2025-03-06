@@ -1,6 +1,5 @@
 import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
-import ShortcutList from "@/component/feature/ShorutcutList";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import ReactQueryProvider, {
@@ -10,6 +9,7 @@ import ReactQueryProvider, {
 } from "@/utils/ReactQuery";
 import { DescInterface } from "@/utils/Interfaces";
 import { useRecoilValue } from "recoil";
+import ShortcutList from "@/component/feature/ShorutcutList";
 
 const GithubProfile = () => (
   <ReactQueryProvider>
@@ -112,7 +112,7 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
           {desc.description}
         </p>
-        <ShortcutList className="mt-3 -ml-1" />
+        <ShortcutList data={desc.shortcuts} />
       </section>
     </section>
   );

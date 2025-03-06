@@ -22,6 +22,7 @@ export type DescDataType = {
   interests: InterestsDataType;
   description: string;
   projects: ProjectDataType[];
+  shortcuts: ShortcutDataType[];
 }; // DescInterface
 export type InterestsDataType = {
   desc: string;
@@ -34,6 +35,10 @@ export type ProjectDataType = {
   url1: string;
   comment: string;
 }; // ProjectInterface
+export type ShortcutDataType = {
+  url: string;
+  svg_url: string;
+}; // ShortcutDataType
 
 export async function descDataQueryFn(setDesc: (data: DescDataType) => void) {
   return await fetch(
@@ -70,4 +75,4 @@ export async function githubDataQueryFn() {
     .then((data) => {
       return data; // Return parsed data
     });
-} // githubDataQeuryFn:: success ? JSON : null
+} // githubDataQueryFn:: success ? JSON : null
