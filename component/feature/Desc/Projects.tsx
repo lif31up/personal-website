@@ -2,17 +2,16 @@ import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import { ReactElement } from "react";
 import { useRecoilValue } from "recoil";
-import { descAtom } from "@/component/feature/Interests";
-import { DescInterface } from "@/utils/Interfaces";
+import { descDataAtom } from "@/utils/ReactQuery";
 
 const Projects = () => <Container />;
 export default Projects;
 
 function Container() {
-  const desc: DescInterface = useRecoilValue(descAtom);
-  if (!desc) return <></>;
-  return <Presenter data={desc.projects} />;
-}
+  const descData = useRecoilValue(descDataAtom);
+  if (!descData) return <></>;
+  return <Presenter data={descData.projects} />;
+} // container
 
 type ProjectDataType = {
   name: string;
@@ -21,9 +20,11 @@ type ProjectDataType = {
   url1: string;
   comment: string;
 }; // ProjectDataType
+
 function Presenter({ data }: DefaultProps<ProjectDataType[]>) {
+  if (!data) return <></>;
   const nodeListOfProjects: ReactElement[] = [];
-  data?.forEach((element, index) => {
+  data.forEach((element: ProjectDataType, index: number) => {
     nodeListOfProjects.push(
       <li key={index} className="pb-2">
         <div>
@@ -59,4 +60,4 @@ function Presenter({ data }: DefaultProps<ProjectDataType[]>) {
       </div>
     </section>
   );
-}
+} // Presenter
