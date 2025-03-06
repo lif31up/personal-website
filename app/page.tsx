@@ -3,14 +3,16 @@
 import GithubRepos from "@/component/feature/Github/GithubRepos";
 import GithubProfile from "@/component/feature/Github/GithubProfile";
 import { RecoilRoot } from "recoil";
-import Interests from "@/component/feature/Interests";
+import Interests from "@/component/feature/Desc/Interests";
 import SVG from "@/component/common/SVG";
-import Projects from "@/component/feature/Projects";
+import Projects from "@/component/feature/Desc/Projects";
+import DescDataFetcher from "@/component/feature/Desc/DescDataFetcher";
 
 export default function Home() {
   return (
     <section>
       <RecoilRoot>
+        <DescDataFetcher />
         <GithubProfile />
         <Interests />
         <Projects />
