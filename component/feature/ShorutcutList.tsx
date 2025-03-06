@@ -3,13 +3,12 @@
 import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import { ReactElement } from "react";
-
-import shortcuts from "@/public/shortcuts.json";
 import SVG from "@/component/common/SVG";
+import { ShortcutDataType } from "@/utils/ReactQuery";
 
 // Render Component to render Shortcut
-function ShortcutList({ className }: DefaultProps<never>) {
-  const data = shortcuts.data; // Access shortcut data from @/public/shortcuts.json
+function ShortcutList({ data }: DefaultProps<ShortcutDataType[]>) {
+  if (!data) return <></>;
   const nodeListOfShortcut: ReactElement[] = []; // Array to hold rendered shortcut elements
   // Generate a list of Shortcut components
   data.forEach((element, index) => {
@@ -17,17 +16,10 @@ function ShortcutList({ className }: DefaultProps<never>) {
   });
   // Render the list of shortcuts inside a flex container
   return (
-    <section className={className + " flex gap-2"}>
-      {nodeListOfShortcut}
-    </section>
+    <section className={"mt-3 -ml-1 flex gap-2"}>{nodeListOfShortcut}</section>
   );
 } // ShortcutList(Renderer)
 export default ShortcutList;
-
-type ShortcutDataType = {
-  url: string;
-  svg_url: string;
-}; // ShortcutDataType
 
 // Sub Component to render an individual Shortcut
 function Shortcut({ data }: DefaultProps<ShortcutDataType>) {

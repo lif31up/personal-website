@@ -1,12 +1,15 @@
 import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
-import ShortcutList from "@/component/feature/ShorutcutList";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import ReactQueryProvider from "@/utils/ReactQuery";
+import ReactQueryProvider, {
+  descDataAtom,
+  githubDataQueryFn,
+  GithubDataType,
+} from "@/utils/ReactQuery";
 import { DescInterface } from "@/utils/Interfaces";
 import { useRecoilValue } from "recoil";
-import { descAtom } from "@/component/feature/Interests";
+import ShortcutList from "@/component/feature/ShorutcutList";
 
 const GithubProfile = () => (
   <ReactQueryProvider>
@@ -16,20 +19,10 @@ const GithubProfile = () => (
 export default GithubProfile;
 
 // Description to my profile
-async function githubQueryFn() {
-  return await fetch(`https://api.github.com/users/lif31up`) // Fetch lif31up github profile
-    .then((response) => {
-      if (!response.ok) return null; // Return null if response isn't OK
-      return response.json(); // Parse JSON if successful
-    })
-    .then((data) => {
-      return data; // Return parsed data
-    });
-} // githubQueryFn:: success ? JSON : null
 
 // Container/Main component to fetch and display GitHub repositories
 function Container() {
-  const desc = useRecoilValue(descAtom);
+  const descData = useRecoilValue(descDataAtom);
   // Use React Query to manage data fetching state
   const {
     data: github,
@@ -37,25 +30,15 @@ function Container() {
     isError: isErrorGithub,
   } = useQuery({
     // Fetch function
-    queryFn: async () => await githubQueryFn(),
+    queryFn: async () => await githubDataQueryFn(),
     queryKey: ["github-profile"], // Cache key for query
   }); // useQuery()
 
   // If data is loading or an error occurred, render nothing
-  if (isLoadingGithub || isErrorGithub || !desc) return <></>;
+  if (isLoadingGithub || isErrorGithub || !descData) return <></>;
   // Render the Presenter component with fetched data
-  return <Presenter data={{ github: github, desc: desc }} />;
+  return <Presenter data={{ github: github, desc: descData }} />;
 } // Container
-
-type GithubDataType = {
-  avatar_url: string;
-  login: string;
-  id: string;
-  location: string;
-  public_repos: string;
-  followers: string;
-  following: string;
-}; // PresenterDataType
 
 type PresenterDataType = {
   github: GithubDataType;
@@ -129,7 +112,7 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
           {desc.description}
         </p>
-        <ShortcutList className="mt-3 -ml-1" />
+        <ShortcutList data={desc.shortcuts} />
       </section>
     </section>
   );
