@@ -4,20 +4,13 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { atom, RecoilState } from "recoil";
 
-function ReactQueryProvider({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-} // ReactQueryProvider_RENDER()
-export default ReactQueryProvider;
-
-// descData
+// Atom definitions
 export const descDataAtom = atom<DescDataType | null>({
   key: "desc",
   default: null,
 }); // descDataAtom
 
+// Type definitions
 export type DescDataType = {
   interests: InterestsDataType;
   description: string;
@@ -39,7 +32,28 @@ export type ShortcutDataType = {
   url: string;
   svg_url: string;
 }; // ShortcutDataType
+export type GithubDataType = {
+  avatar_url: string;
+  login: string;
+  id: string;
+  location: string;
+  public_repos: string;
+  followers: string;
+  following: string;
+}; // PresenterDataType
 
+export default function ReactQueryProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [queryClient] = useState(() => new QueryClient());
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+}
+
+// Query Functions
 export async function descDataQueryFn(setDesc: (data: DescDataType) => void) {
   return await fetch(
     `https://raw.githubusercontent.com/lif31up/lif31up.github.io/main/description.json`
@@ -53,18 +67,6 @@ export async function descDataQueryFn(setDesc: (data: DescDataType) => void) {
       return data;
     });
 } // descDataQueryFn:: success ? JSON : null
-
-// githubData
-
-export type GithubDataType = {
-  avatar_url: string;
-  login: string;
-  id: string;
-  location: string;
-  public_repos: string;
-  followers: string;
-  following: string;
-}; // PresenterDataType
 
 export async function githubDataQueryFn() {
   return await fetch(`https://api.github.com/users/lif31up`) // Fetch lif31up github profile

@@ -5,15 +5,16 @@ import ReactQueryProvider, {
 import { useSetRecoilState } from "recoil";
 import { useQuery } from "@tanstack/react-query";
 
-function DescDataFetcher() {
+// Main Component
+export default function DescDataFetcher() {
   return (
     <ReactQueryProvider>
       <Fetcher />
     </ReactQueryProvider>
   );
 }
-export default DescDataFetcher;
 
+// Fetcher Function
 function Fetcher() {
   const setDescDataAtom = useSetRecoilState(descDataAtom);
   const {
@@ -21,10 +22,9 @@ function Fetcher() {
     isLoading: isLoading,
     isError: isError,
   } = useQuery({
-    // Fetch function
     queryFn: async () => await descDataQueryFn(setDescDataAtom),
     queryKey: ["desc-query"], // Cache key for query
-  }); // useQuery()
+  });
   if (isLoading || isError || !descData) return <></>;
   return <></>;
 }
