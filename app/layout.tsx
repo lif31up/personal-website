@@ -9,7 +9,7 @@ import ReactQueryProvider from "@/utils/ReactQuery";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "lif31up's Personal Website",
+  title: "lif31up's Laboratory",
   description: "",
 };
 
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Topbar data={{ height: "3.5rem" }} />
+        <Topbar topic={{ height: "3.5rem" }} />
         <main>{children}</main>
       </body>
     </html>

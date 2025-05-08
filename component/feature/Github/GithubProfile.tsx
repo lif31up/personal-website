@@ -11,53 +11,43 @@ import { DescInterface } from "@/utils/Interfaces";
 import { useRecoilValue } from "recoil";
 import ShortcutList from "@/component/feature/ShorutcutList";
 
-const GithubProfile = () => (
-  <ReactQueryProvider>
-    <Container />
-  </ReactQueryProvider>
-); // GithubProfile()
-export default GithubProfile;
+// Type definitions
+type PresenterDataType = {
+  github: GithubDataType;
+  desc: DescInterface;
+};
 
-// Description to my profile
+// Main Function
+export default function GithubProfile() {
+  return (
+    <ReactQueryProvider>
+      <GithubProfileContainer />
+    </ReactQueryProvider>
+  );
+}
 
-// Container/Main component to fetch and display GitHub repositories
-function Container() {
+// ContainerFunction
+function GithubProfileContainer() {
   const descData = useRecoilValue(descDataAtom);
-  // Use React Query to manage data fetching state
   const {
     data: github,
     isLoading: isLoadingGithub,
     isError: isErrorGithub,
   } = useQuery({
-    // Fetch function
     queryFn: async () => await githubDataQueryFn(),
-    queryKey: ["github-profile"], // Cache key for query
-  }); // useQuery()
-
-  // If data is loading or an error occurred, render nothing
+    queryKey: ["github-profile"],
+  });
   if (isLoadingGithub || isErrorGithub || !descData) return <></>;
-  // Render the Presenter component with fetched data
-  return <Presenter data={{ github: github, desc: descData }} />;
-} // Container
+  return <GithubProfilePresenter topic={{ github: github, desc: descData }} />;
+}
 
-type PresenterDataType = {
-  github: GithubDataType;
-  desc: DescInterface;
-};
-// Presentational Component to display github profile info
-function Presenter({ data }: DefaultProps<PresenterDataType>) {
-  // If data is loading or an error occurred, render nothing
-  if (!data) return <></>;
-  const github: GithubDataType = data.github;
-  const desc: any = data.desc;
-  // Styling for the Presenter container
-  const style: TailProperties = {
-    typo: "text-neutral-400",
-    layout: "lg:flex gap-12 md:block",
-    box: "w-full h-fit pt-4 pb-4 px-4 lg:pb-12 lg:px-80",
-  };
+// PresenterComponent
+function GithubProfilePresenter({ topic }: DefaultProps<PresenterDataType>) {
+  if (!topic) return <></>;
+  const github: GithubDataType = topic.github;
+  const desc: any = topic.desc;
   return (
-    <section className={cn(style)}>
+    <section className={cn(GithubProfilePresenterStyle)}>
       <div className="w-fit h-fit animate__animated animate__flipInY">
         <Image
           src={github.avatar_url}
@@ -112,25 +102,22 @@ function Presenter({ data }: DefaultProps<PresenterDataType>) {
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
           {desc.description}
         </p>
-        <ShortcutList data={desc.shortcuts} />
+        <ShortcutList topic={desc.shortcuts} />
       </section>
     </section>
   );
-} // Presenter()
+}
+const GithubProfilePresenterStyle: TailProperties = {
+  typo: "text-neutral-400",
+  layout: "lg:flex gap-12 md:block",
+  box: "w-full h-fit pt-4 pb-4 px-4 lg:pb-12 lg:px-80",
+};
 
-// Sub Component to copy the current page link.
 const GithubLinkButton = () => {
-  // Styling for the button
-  const style: TailProperties = {
-    bg_border: "bg-neutral-950 hover:bg-neutral-800",
-    typo: "text-white",
-    etc: "rounded-full",
-    box: "w-fit h-fit p-1",
-  }; // style
   return (
     <button
       title="share"
-      className={cn(style)}
+      className={cn(GithubButtonStyle)}
       onClick={() => {
         navigator.clipboard.writeText(window.location.href); // copied the current location url to clipboard
       }}
@@ -157,4 +144,10 @@ const GithubLinkButton = () => {
       </svg>
     </button>
   );
-}; // GithubButton()
+};
+const GithubButtonStyle: TailProperties = {
+  bg_border: "bg-neutral-950 hover:bg-neutral-800",
+  typo: "text-white",
+  etc: "rounded-full",
+  box: "w-fit h-fit p-1",
+};

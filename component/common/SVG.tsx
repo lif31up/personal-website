@@ -13,20 +13,20 @@ export type SVGDataType = {
 
 /* SVG Component
  * Dynamically renders an SVG file and adjusts its attributes (e.g., dimensions, colors).*/
-function SVG({ data, className }: DefaultProps<SVGDataType>) {
+function SVG({ topic, className }: DefaultProps<SVGDataType>) {
   // Ref for the <object> element that loads the SVG
   const elementRef = useRef<any>(null);
   // useSVG: Handles the dynamic modification of the SVG's attributes once it has loaded.
-  useSVG(elementRef, data);
+  useSVG(elementRef, topic);
   // Return nothing if no data is provided
-  if (!data) return <></>;
+  if (!topic) return <></>;
   // Render an <object> element, The `object` element is used to embed the SVG file
   return (
     <object
       className={className}
       ref={elementRef}
       type="image/svg+xml"
-      data={data.svg_url}
+      data={topic.svg_url}
     />
   );
 } // SVG()

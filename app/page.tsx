@@ -19,7 +19,7 @@ export default function Home() {
         <GithubRepos />
       </RecoilRoot>
       <section className="lg:w-full h-fit flex items-center justify-center py-4 lg:mt-16 mt-4 gap-2 lg:text-xs text-xs text-neutral-500">
-        <h1>Personal Website – @lif31up powered by 2025</h1>
+        <h1>Laboratory Website – @lif31up powered by 2025</h1>
         <a href="https://vercel.com/">▼ Vercel</a>
       </section>
     </section>

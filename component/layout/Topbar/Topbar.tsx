@@ -16,12 +16,12 @@ type TopbarDataType = { height: string }; // TopbarDataType
 /* Topbar Component:
  * Displays a fixed navigation bar at the top of the page.
  * Adjusts body padding and dynamically adds a border when scrolling on small screens.*/
-function Topbar({ data }: DefaultProps<TopbarDataType>) {
+function Topbar({ topic }: DefaultProps<TopbarDataType>) {
   const elementRef = useRef<any>(null);
   // useEffect to handle dynamic styling and scroll behavior
-  useTopbarChange(elementRef, data);
+  useTopbarChange(elementRef, topic);
   // Return nothing if no data is provided
-  if (!data) return <></>;
+  if (!topic) return <></>;
   // Styling for the topbar container
   const style: TailProperties = {
     layout: "flex items-center justify-start gap-4",
@@ -36,7 +36,7 @@ function Topbar({ data }: DefaultProps<TopbarDataType>) {
         ref={elementRef}
         id={topbarId}
       >
-        <div className={cn(style)} style={{ height: data.height }}>
+        <div className={cn(style)} style={{ height: topic.height }}>
           <ToTopButton />
           <div className="flex-col gap-1">
             <h1 className="font-bold text-sm text-neutral-200">Lif31up</h1>

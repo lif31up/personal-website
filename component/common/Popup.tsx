@@ -9,8 +9,8 @@ type PopupDataType = {
   animation: string;
 }; // PopupDataType
 
-function Popup({ data }: DefaultProps<PopupDataType>) {
-  if (!data) return <></>;
+function Popup({ topic }: DefaultProps<PopupDataType>) {
+  if (!topic) return <></>;
   const style: TailProperties = {
     box: "mb-4 ml-2",
     typo: "text-sm",
@@ -20,7 +20,7 @@ function Popup({ data }: DefaultProps<PopupDataType>) {
     <div className={cn(style)}>
       <div
         id={popupId}
-        className={`text-white bg-neutral-900 px-3 rounded-full ${data.animation}`}
+        className={`text-white bg-neutral-900 px-3 rounded-full ${topic.animation}`}
       />
     </div>
   );
