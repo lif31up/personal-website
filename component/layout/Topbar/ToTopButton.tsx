@@ -22,7 +22,7 @@ export default ToTopButton;
 function Presenter({}: DefaultProps<never>) {
   // Define styles for the button's appearance using TailProperties
   const style: TailProperties = {
-    box: `w-8 h-8 hover:bg-neutral-900 rounded-full`,
+    box: `w-10 h-10 -m-1 bg-neutral-950 hover:bg-neutral-900 rounded-full`,
     layout: "flex items-center justify-center",
     typo: "text-slate-300",
     etc: "shadow-base",
@@ -30,13 +30,7 @@ function Presenter({}: DefaultProps<never>) {
   // Render the styled button with an animated star icon
   return (
     <div className={cn(style)}>
-      <img
-        src="/star_anime.gif"
-        className="mr-1"
-        alt="star_anime"
-        width={24}
-        height={24}
-      />
+      <img src="/star_anime.gif" alt="star_anime" width={24} height={24} />
     </div>
   );
 } // Presenter()
