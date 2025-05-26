@@ -22,7 +22,7 @@ export default ToTopButton;
 function Presenter({}: DefaultProps<never>) {
   // Define styles for the button's appearance using TailProperties
   const style: TailProperties = {
-    box: `w-10 h-10 -m-1 hover:bg-neutral-900 rounded-full`,
+    box: `w-10 h-10 -m-1 bg-neutral-950 hover:bg-neutral-900 rounded-full`,
     layout: "flex items-center justify-center",
     typo: "text-slate-300",
     etc: "shadow-base",
