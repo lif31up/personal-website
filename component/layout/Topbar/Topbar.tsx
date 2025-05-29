@@ -6,6 +6,7 @@ import DefaultProps from "@/utils/DefaultProps";
 import { useRef } from "react";
 import ToTopButton from "@/component/layout/Topbar/ToTopButton";
 import { useActivate } from "@/utils/hook/Hooks";
+import FirebaseAnalytics from "@/component/feature/Fierbase";
 
 // ID for the topbar element, used for DOM manipulation
 const topbarId: string = "topbar--0";
@@ -46,6 +47,7 @@ function Topbar({ topic }: DefaultProps<TopbarDataType>) {
           </div>
         </div>
       </section>
+      <FirebaseAnalytics />
     </RecoilRoot>
   );
 } // Topbar()
