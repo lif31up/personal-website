@@ -3,9 +3,20 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { useEffect, useState } from "react";
-import { firebaseConfig } from "@/utils/firebase";
 
+export const firebaseConfig = {
+  apiKey: "AIzaSyA1zRX8TJgBK_4xIeWMpKrc-GdPd27vrmc",
+  authDomain: "personal-website-c5db2.firebaseapp.com",
+  projectId: "personal-website-c5db2",
+  storageBucket: "personal-website-c5db2.firebasestorage.app",
+  messagingSenderId: "413109963399",
+  appId: "1:413109963399:web:4c1cd7a35ba290f0a1c622",
+  measurementId: "G-XY034NC7EH",
+};
+
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const FirebaseAnalytics = () => {
   const [analytics, setAnalytics] = useState(null);
