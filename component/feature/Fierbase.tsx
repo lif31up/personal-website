@@ -14,10 +14,6 @@ export const firebaseConfig = {
   measurementId: "G-XY034NC7EH",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
 const FirebaseAnalytics = () => {
   const [analytics, setAnalytics] = useState(null);
   const [pageViews, setPageViews] = useState(0);
@@ -32,6 +28,10 @@ const FirebaseAnalytics = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
       const analyticsInstance: any = getAnalytics(app);
       setAnalytics(analyticsInstance);
 
