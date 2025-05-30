@@ -4,6 +4,7 @@ import ReactQueryProvider, {
 } from "@/utils/ReactQuery";
 import { useSetRecoilState } from "recoil";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "@/component/common/Loading";
 
 // Main Component
 export default function DescDataFetcher() {
@@ -25,6 +26,6 @@ function Fetcher() {
     queryFn: async () => await descDataQueryFn(setDescDataAtom),
     queryKey: ["desc-query"], // Cache key for query
   });
-  if (isLoading || isError || !descData) return <></>;
-  return <></>;
+  if (isLoading || isError || !descData) return <Loading />;
+  return null;
 }

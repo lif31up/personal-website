@@ -3,6 +3,6 @@ export default interface DefaultProps<T> {
   id?: string;
   title?: string;
   children?: any;
-  topic?: T;
+  data?: T;
   onClick?: (parm: any) => any;
 }

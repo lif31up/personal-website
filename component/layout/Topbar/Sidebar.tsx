@@ -4,9 +4,9 @@ import DefaultProps from "@/utils/DefaultProps";
 import TailProperties, { cn } from "@/styles/TailProperties";
 
 type SidebarDataType = { height: string };
-function Sidebar({ topic }: DefaultProps<SidebarDataType>) {
+function Sidebar({ data }: DefaultProps<SidebarDataType>) {
   // If data is loading or an error occurred, render nothing
-  if (!topic) return <></>;
+  if (!data) return <></>;
   // Styling for the Presenter container
   const style: TailProperties = {
     box: "h-screen w-16",
@@ -14,7 +14,7 @@ function Sidebar({ topic }: DefaultProps<SidebarDataType>) {
     etc: "text-white",
   };
   return (
-    <section className={cn(style)} style={{ paddingTop: topic.height }}>
+    <section className={cn(style)} style={{ paddingTop: data.height }}>
       <h1>HELLO</h1>
     </section>
   );
