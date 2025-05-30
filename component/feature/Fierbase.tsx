@@ -3,7 +3,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { useEffect, useState } from "react";
-import { firebaseConfig } from "@/firebase";
+import { firebaseConfig } from "@/utils/firebase";
 
 const app = initializeApp(firebaseConfig);
 
