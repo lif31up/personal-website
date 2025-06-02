@@ -10,7 +10,6 @@ import ReactQueryProvider, {
 import { DescInterface } from "@/utils/Interfaces";
 import { useRecoilValue } from "recoil";
 import ShortcutList from "@/component/feature/ShorutcutList";
-import Loading from "@/component/common/Loading";
 
 // Type definitions
 type PresenterDataType = {
@@ -38,15 +37,15 @@ function GithubProfileContainer() {
     queryFn: async () => await githubDataQueryFn(),
     queryKey: ["github-profile"],
   });
-  if (isLoadingGithub || isErrorGithub || !descData) return <Loading />;
-  return <GithubProfilePresenter data={{ github: github, desc: descData }} />;
+  if (isLoadingGithub || isErrorGithub || !descData) return <></>;
+  return <GithubProfilePresenter topic={{ github: github, desc: descData }} />;
 }
 
 // PresenterComponent
-function GithubProfilePresenter({ data }: DefaultProps<PresenterDataType>) {
-  if (!data) return null;
-  const github: GithubDataType = data.github;
-  const desc: any = data.desc;
+function GithubProfilePresenter({ topic }: DefaultProps<PresenterDataType>) {
+  if (!topic) return <></>;
+  const github: GithubDataType = topic.github;
+  const desc: any = topic.desc;
   return (
     <section className={cn(GithubProfilePresenterStyle)}>
       <div className="w-fit h-fit animate__animated animate__flipInY">
@@ -103,7 +102,7 @@ function GithubProfilePresenter({ data }: DefaultProps<PresenterDataType>) {
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
           {desc.description}
         </p>
-        <ShortcutList data={desc.shortcuts} />
+        <ShortcutList topic={desc.shortcuts} />
       </section>
     </section>
   );
@@ -146,7 +145,6 @@ const GithubLinkButton = () => {
     </button>
   );
 };
-
 const GithubButtonStyle: TailProperties = {
   bg_border: "bg-neutral-950 hover:bg-neutral-800",
   typo: "text-white",

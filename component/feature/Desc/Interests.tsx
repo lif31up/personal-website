@@ -3,7 +3,6 @@ import TailProperties, { cn } from "@/styles/TailProperties";
 import { ReactElement } from "react";
 import { useRecoilValue } from "recoil";
 import ReactQueryProvider, { descDataAtom } from "@/utils/ReactQuery";
-import Loading from "@/component/common/Loading";
 
 // Type definitions
 type InterestTopic = string;
@@ -24,15 +23,16 @@ export default function Interests({}) {
 // Container Component (data fetcher)
 function InterestsContainer({}) {
   const descData = useRecoilValue(descDataAtom);
-  if (!descData) return <Loading />;
-  return <InterestsPresenter data={descData.interests} />;
+  if (!descData) return null;
+  return <InterestsPresenter topic={descData.interests} />;
 }
 
-function InterestsPresenter({ data }: DefaultProps<PresenterDataType>) {
-  if (!data) return null;
-  const nodeListOfInterestBlock: ReactElement[] = data.topics.map(
-    (name: string, index: number) => <InterestItem data={name} key={index} />
-  );
+function InterestsPresenter({ topic }: DefaultProps<PresenterDataType>) {
+  if (!topic) return null;
+  const nodeListOfInterestBlock: ReactElement[] = [];
+  topic.topics.forEach((name: string, index: number) => {
+    nodeListOfInterestBlock.push(<InterestItem topic={name} key={index} />);
+  });
   return (
     <section className="w-full h-fit lg:px-80 px-4">
       <div className={cn(interestsPresenterStyles)}>
@@ -41,7 +41,7 @@ function InterestsPresenter({ data }: DefaultProps<PresenterDataType>) {
           {nodeListOfInterestBlock}
         </div>
         <p className="mt-4 text-md text-neutral-400 pr-42 leading-tight pb-5 border-b border-neutral-800">
-          {data.desc}
+          {topic.desc}
         </p>
       </div>
     </section>
@@ -53,10 +53,10 @@ const interestsPresenterStyles: TailProperties = {
   typo: "text-white",
 };
 
-function InterestItem({ data }: DefaultProps<InterestTopic>) {
+function InterestItem({ topic }: DefaultProps<InterestTopic>) {
   return (
     <li>
-      <h2 className="text-md font-medium">{data}</h2>
+      <h2 className="text-md font-medium">{topic}</h2>
     </li>
   );
 }

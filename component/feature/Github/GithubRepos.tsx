@@ -3,7 +3,6 @@ import { ReactElement } from "react";
 import TailProperties, { cn } from "@/styles/TailProperties";
 import { useQuery } from "@tanstack/react-query";
 import ReactQueryProvider from "@/utils/ReactQuery";
-import Loading from "@/component/common/Loading";
 
 const GithubRepos = () => (
   <ReactQueryProvider>
@@ -32,21 +31,25 @@ function Container() {
     queryKey: ["github-repos"], // Cache key for query
   }); // useQuery()
   // If data is loading or an error occurred, render nothing
-  if (isLoading || isError) return <Loading />;
+  if (isLoading || isError) return <></>;
   // Render the RepoBlockRender component with fetched data
-  return <RepoBlockRender data={data} />;
+  return <RepoBlockRender topic={data} />;
 } // GithubRepos(Container)
 
-const forbiddenName: string[] = ["lif31up", "lif31up.github.io", "formssafe"];
 // Render Component to render RepoBlock
-function RepoBlockRender({ data }: DefaultProps<RepoBlockDataType[]>) {
+function RepoBlockRender({ topic }: DefaultProps<RepoBlockDataType[]>) {
   // If data is loading or an error occurred, render nothing
-  if (!data) return null;
+  if (!topic) return <></>;
   const nodeListOfRepoBlock: ReactElement[] = []; // List of repository components
   // Generate repository blocks for each item in data
-  data.forEach((element: RepoBlockDataType, index: number) => {
-    if (element.name in forbiddenName) return; // Skip README repositories
-    nodeListOfRepoBlock.push(<RepoBlock data={element} key={index} />); // Add repository block
+  topic.forEach((element: RepoBlockDataType, index: number) => {
+    if (
+      element.name === "lif31up" ||
+      element.name === "lif31up.github.io" ||
+      element.name === "formssafe"
+    )
+      return; // Skip README repositories
+    nodeListOfRepoBlock.push(<RepoBlock topic={element} key={index} />); // Add repository block
   });
   // Styling for the RepoBlockRender container
   const style: TailProperties = {
@@ -72,9 +75,9 @@ type RepoBlockDataType = {
 }; // ReposBlockDataType
 
 // Sub Component to render an individual repository block
-function RepoBlock({ data }: DefaultProps<RepoBlockDataType>) {
+function RepoBlock({ topic }: DefaultProps<RepoBlockDataType>) {
   // If data is loading or an error occurred, render nothing
-  if (!data) return null;
+  if (!topic) return <></>;
   // Styling for the Presenter container
   const style: TailProperties = {
     layout: "grid",
@@ -86,8 +89,8 @@ function RepoBlock({ data }: DefaultProps<RepoBlockDataType>) {
   return (
     <button
       className={cn(style)}
-      onClick={() => window.open(data.svn_url)}
-      title={data.url}
+      onClick={() => window.open(topic.svn_url)}
+      title={topic.url}
     >
       <div className="flex items-center gap-2 text-neutral-400">
         <svg
@@ -105,15 +108,17 @@ function RepoBlock({ data }: DefaultProps<RepoBlockDataType>) {
             strokeLinejoin="round"
           />
         </svg>
-        <h1 className="w-fit text-neutral-200 font-medium">{data.name}</h1>
+        <h1 className="w-fit text-neutral-200 font-medium">{topic.name}</h1>
       </div>
       <p className="text-sm text-left">
-        {data.description ? data.description : data.url}
+        {topic.description ? topic.description : topic.url}
       </p>
-      {data.language ? (
+      {topic.language ? (
         <div className="flex items-center gap-2 mt-2">
-          <div className={`w-3 h-3 rounded-full ${colorDict[data.language]}`} />
-          <h1 className="text-xs text-neutral-200">{data.language}</h1>
+          <div
+            className={`w-3 h-3 rounded-full ${colorDict[topic.language]}`}
+          />
+          <h1 className="text-xs text-neutral-200">{topic.language}</h1>
         </div>
       ) : (
         <></>

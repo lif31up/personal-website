@@ -8,29 +8,30 @@ import { ShortcutDataType } from "@/utils/ReactQuery";
 
 // Main Component
 export default function ShortcutList({
-  data,
+  topic,
 }: DefaultProps<ShortcutDataType[]>) {
-  if (!data) return null;
-  const nodeListOfShortcut: ReactElement[] = data.map((element, index) => (
-    <Shortcut data={element} key={index} />
-  ));
+  if (!topic) return <></>;
+  const nodeListOfShortcut: ReactElement[] = [];
+  topic.forEach((element, index) => {
+    nodeListOfShortcut.push(<Shortcut topic={element} key={index} />);
+  });
   return (
     <section className={"mt-3 -ml-1 flex gap-2"}>{nodeListOfShortcut}</section>
   );
 }
 
 // Render Component
-function Shortcut({ data }: DefaultProps<ShortcutDataType>) {
-  if (!data) return null;
+function Shortcut({ topic }: DefaultProps<ShortcutDataType>) {
+  if (!topic) return null;
   const onClick = () => {
-    window.open(data.url);
+    window.open(topic.url);
   };
   return (
-    <button onClick={onClick} className={cn(ShortcutStyle)} title={data.url}>
+    <button onClick={onClick} className={cn(ShortcutStyle)} title={topic.url}>
       <SVG
         className="pointer-events-none"
-        data={{
-          svg_url: data.svg_url,
+        topic={{
+          svg_url: topic.svg_url,
           width: 16,
           height: 16,
           fill: "white",
