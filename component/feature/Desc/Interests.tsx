@@ -24,24 +24,24 @@ export default function Interests({}) {
 function InterestsContainer({}) {
   const descData = useRecoilValue(descDataAtom);
   if (!descData) return null;
-  return <InterestsPresenter topic={descData.interests} />;
+  return <InterestsPresenter data={descData.interests} />;
 }
 
-function InterestsPresenter({ topic }: DefaultProps<PresenterDataType>) {
-  if (!topic) return null;
+function InterestsPresenter({ data }: DefaultProps<PresenterDataType>) {
+  if (!data) return null;
   const nodeListOfInterestBlock: ReactElement[] = [];
-  topic.topics.forEach((name: string, index: number) => {
-    nodeListOfInterestBlock.push(<InterestItem topic={name} key={index} />);
+  data.topics.forEach((name: string, index: number) => {
+    nodeListOfInterestBlock.push(<InterestItem data={name} key={index} />);
   });
   return (
-    <section className="w-full h-fit lg:px-80 px-4">
+    <section className="w-full h-fit">
       <div className={cn(interestsPresenterStyles)}>
         <h1 className="mb-2 text-white font-bold text-2xl">Interests</h1>
         <div className="lg:ml-6 ml-4 text-neutral-200">
           {nodeListOfInterestBlock}
         </div>
         <p className="mt-4 text-md text-neutral-400 pr-42 leading-tight pb-5 border-b border-neutral-800">
-          {topic.desc}
+          {data.desc}
         </p>
       </div>
     </section>
@@ -53,10 +53,10 @@ const interestsPresenterStyles: TailProperties = {
   typo: "text-white",
 };
 
-function InterestItem({ topic }: DefaultProps<InterestTopic>) {
+function InterestItem({ data }: DefaultProps<InterestTopic>) {
   return (
     <li>
-      <h2 className="text-md font-medium">{topic}</h2>
+      <h2 className="text-md font-medium">{data}</h2>
     </li>
   );
 }

@@ -29,6 +29,7 @@ export type ProjectDataType = {
   comment: string;
 }; // ProjectInterface
 export type ShortcutDataType = {
+  name: string;
   url: string;
   svg_url: string;
 }; // ShortcutDataType
