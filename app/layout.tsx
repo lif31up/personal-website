@@ -3,8 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import Topbar from "@/component/layout/Topbar/Topbar";
-import Popup from "@/component/common/Popup";
-import ReactQueryProvider from "@/utils/ReactQuery";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Topbar topic={{ height: "3.5rem" }} />
-        <main>{children}</main>
+        <Topbar data={{ height: "3.5rem" }} />
+        <main className="xl:px-80 md:px-16 px-4">{children}</main>
       </body>
     </html>
   );

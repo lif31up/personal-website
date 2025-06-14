@@ -9,10 +9,10 @@ type SidebarButtonDataType = {
   height: string;
 }; // SidebarButtonDataType
 
-function SidebarButton({ topic }: DefaultProps<SidebarButtonDataType>) {
+function SidebarButton({ data }: DefaultProps<SidebarButtonDataType>) {
   const [isActivated, setIsActivated] = useState<boolean>(false);
   const sidebarRef = useRef<any>(null);
-  if (!topic) return <></>;
+  if (!data) return <></>;
   const uuid: string = "sidebar--0";
   const onClick = () => {
     setIsActivated(!isActivated);
@@ -22,7 +22,7 @@ function SidebarButton({ topic }: DefaultProps<SidebarButtonDataType>) {
   return (
     <>
       <button onClick={() => onClick()}>
-        <Presenter topic={{ activated: isActivated }} />
+        <Presenter data={{ activated: isActivated }} />
       </button>{" "}
       <div
         ref={sidebarRef}
@@ -37,7 +37,7 @@ function SidebarButton({ topic }: DefaultProps<SidebarButtonDataType>) {
           transition: "left 0.5s ease-in-out",
         }}
       >
-        <Sidebar topic={topic} />
+        <Sidebar data={data} />
       </div>
     </>
   );
@@ -46,10 +46,10 @@ export default SidebarButton;
 
 type PresenterDataType = { activated: boolean };
 
-function Presenter({ topic }: DefaultProps<PresenterDataType>) {
-  if (!topic) return <></>;
+function Presenter({ data }: DefaultProps<PresenterDataType>) {
+  if (!data) return <></>;
   const style: TailProperties = {
-    box: `w-8 h-8 bg-neutral-${topic.activated ? "800" : "950"} rounded-full`,
+    box: `w-8 h-8 bg-neutral-${data.activated ? "800" : "950"} rounded-full`,
     layout: "flex items-center justify-center",
     typo: "text-slate-300",
     etc: "shadow-base",

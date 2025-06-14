@@ -38,14 +38,15 @@ function GithubProfileContainer() {
     queryKey: ["github-profile"],
   });
   if (isLoadingGithub || isErrorGithub || !descData) return <></>;
-  return <GithubProfilePresenter topic={{ github: github, desc: descData }} />;
+  return <GithubProfilePresenter data={{ github: github, desc: descData }} />;
 }
 
 // PresenterComponent
-function GithubProfilePresenter({ topic }: DefaultProps<PresenterDataType>) {
-  if (!topic) return <></>;
-  const github: GithubDataType = topic.github;
-  const desc: any = topic.desc;
+function GithubProfilePresenter({ data }: DefaultProps<PresenterDataType>) {
+  if (!data) return null;
+  const github: GithubDataType = data.github;
+  const desc: any = data.desc;
+  if (!github || !desc) return null;
   return (
     <section className={cn(GithubProfilePresenterStyle)}>
       <div className="w-fit h-fit animate__animated animate__flipInY">
@@ -102,7 +103,7 @@ function GithubProfilePresenter({ topic }: DefaultProps<PresenterDataType>) {
         <p className="text-neutral-400 pr-42 leading-tight mt-4 pb-5 border-b border-neutral-800">
           {desc.description}
         </p>
-        <ShortcutList topic={desc.shortcuts} />
+        <ShortcutList data={desc.shortcuts} />
       </section>
     </section>
   );
@@ -110,7 +111,7 @@ function GithubProfilePresenter({ topic }: DefaultProps<PresenterDataType>) {
 const GithubProfilePresenterStyle: TailProperties = {
   typo: "text-neutral-400",
   layout: "lg:flex gap-12 md:block",
-  box: "w-full h-fit pt-4 pb-4 px-4 lg:pb-12 lg:px-80",
+  box: "w-full h-fit pt-4 pb-4 lg:pb-12",
 };
 
 const GithubLinkButton = () => {

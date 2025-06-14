@@ -10,7 +10,7 @@ export default Projects;
 function Container() {
   const descData = useRecoilValue(descDataAtom);
   if (!descData) return <></>;
-  return <Presenter topic={descData.projects} />;
+  return <Presenter data={descData.projects} />;
 } // container
 
 type ProjectDataType = {
@@ -21,10 +21,10 @@ type ProjectDataType = {
   comment: string;
 }; // ProjectDataType
 
-function Presenter({ topic }: DefaultProps<ProjectDataType[]>) {
-  if (!topic) return <></>;
+function Presenter({ data }: DefaultProps<ProjectDataType[]>) {
+  if (!data) return <></>;
   const nodeListOfProjects: ReactElement[] = [];
-  topic.forEach((element: ProjectDataType, index: number) => {
+  data.forEach((element: ProjectDataType, index: number) => {
     nodeListOfProjects.push(
       <li key={index} className="pb-2">
         <div>
@@ -54,7 +54,7 @@ function Presenter({ topic }: DefaultProps<ProjectDataType[]>) {
     typo: "text-white",
   };
   return (
-    <section className="w-full h-fit lg:pb-8 pb-2 pt-4 lg:px-80 px-4">
+    <section className="w-full h-fit lg:pb-8 pb-2 pt-4">
       <div className={cn(style)}>
         <div className="lg:ml-6 ml-4">{nodeListOfProjects}</div>
       </div>

@@ -33,27 +33,27 @@ function Container() {
   // If data is loading or an error occurred, render nothing
   if (isLoading || isError) return <></>;
   // Render the RepoBlockRender component with fetched data
-  return <RepoBlockRender topic={data} />;
+  return <RepoBlockRender data={data} />;
 } // GithubRepos(Container)
 
 // Render Component to render RepoBlock
-function RepoBlockRender({ topic }: DefaultProps<RepoBlockDataType[]>) {
+function RepoBlockRender({ data }: DefaultProps<RepoBlockDataType[]>) {
   // If data is loading or an error occurred, render nothing
-  if (!topic) return <></>;
+  if (!data) return <></>;
   const nodeListOfRepoBlock: ReactElement[] = []; // List of repository components
   // Generate repository blocks for each item in data
-  topic.forEach((element: RepoBlockDataType, index: number) => {
+  data.forEach((element: RepoBlockDataType, index: number) => {
     if (
       element.name === "lif31up" ||
       element.name === "lif31up.github.io" ||
       element.name === "formssafe"
     )
       return; // Skip README repositories
-    nodeListOfRepoBlock.push(<RepoBlock topic={element} key={index} />); // Add repository block
+    nodeListOfRepoBlock.push(<RepoBlock data={element} key={index} />); // Add repository block
   });
   // Styling for the RepoBlockRender container
   const style: TailProperties = {
-    box: "w-full h-fit lg:pt-4 pt-8 px-4 lg:px-80",
+    box: "w-full h-fit lg:pt-4 pt-8",
     layout: "grid gap-2",
   };
   return (
@@ -75,9 +75,9 @@ type RepoBlockDataType = {
 }; // ReposBlockDataType
 
 // Sub Component to render an individual repository block
-function RepoBlock({ topic }: DefaultProps<RepoBlockDataType>) {
+function RepoBlock({ data }: DefaultProps<RepoBlockDataType>) {
   // If data is loading or an error occurred, render nothing
-  if (!topic) return <></>;
+  if (!data) return <></>;
   // Styling for the Presenter container
   const style: TailProperties = {
     layout: "grid",
@@ -89,8 +89,8 @@ function RepoBlock({ topic }: DefaultProps<RepoBlockDataType>) {
   return (
     <button
       className={cn(style)}
-      onClick={() => window.open(topic.svn_url)}
-      title={topic.url}
+      onClick={() => window.open(data.svn_url)}
+      title={data.url}
     >
       <div className="flex items-center gap-2 text-neutral-400">
         <svg
@@ -108,17 +108,17 @@ function RepoBlock({ topic }: DefaultProps<RepoBlockDataType>) {
             strokeLinejoin="round"
           />
         </svg>
-        <h1 className="w-fit text-neutral-200 font-medium">{topic.name}</h1>
+        <h1 className="w-fit text-neutral-200 font-medium">{data.name}</h1>
       </div>
       <p className="text-sm text-left">
-        {topic.description ? topic.description : topic.url}
+        {data.description ? data.description : data.url}
       </p>
-      {topic.language ? (
+      {data.language ? (
         <div className="flex items-center gap-2 mt-2">
           <div
-            className={`w-3 h-3 rounded-full ${colorDict[topic.language]}`}
+            className={`w-3 h-3 rounded-full ${colorDict[data.language]}`}
           />
-          <h1 className="text-xs text-neutral-200">{topic.language}</h1>
+          <h1 className="text-xs text-neutral-200">{data.language}</h1>
         </div>
       ) : (
         <></>
